@@ -7,12 +7,11 @@ charset-normalizer==2.1.1
 cryptography==38.0.1
 decorator==5.1.1
 defusedxml==0.7.1
-Django==4.1.1
+Django==4.1.2
 django-debug-toolbar==3.7.0
 django-debug-toolbar-template-profiler==2.1.0
 django-extensions==3.2.1
 executing==1.1.0
-idna==3.4
 ipython==8.5.0
 jedi==0.18.1
 matplotlib-inline==0.1.6
