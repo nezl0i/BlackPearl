@@ -6,28 +6,61 @@ def index(request):
 
 
 def contact(request):
-    return render(request, 'contact.html')
+    content = {
+        'title': 'Контакты'
+    }
+    return render(request, 'contact.html', content)
 
 
 def design(request):
-    return render(request, 'design.html')
+    content = {
+        'title': 'Дизайн',
+        'description': 'Lorem ipsum dolor amet consecrate adipiscing dolore magna aliqua '
+                       'enim minim estudiat veniam siad venomous dolore'
+    }
+    return render(request, 'design.html', content)
 
 
 def faq(request):
-    return render(request, 'faq.html')
+    content = {
+        'title': 'Часто задаваемые вопросы',
+        'description': 'Lorem ipsum dolor amet consecrate adipiscing dolore magna aliqua '
+                       'enim minim estudiat veniam siad venomous dolore'
+    }
+    return render(request, 'faq.html', content)
 
 
 def marketing(request):
-    return render(request, 'marketing.html')
+    content = {
+        'title': 'Маркетинг',
+        'description': 'Lorem ipsum dolor amet consecrate adipiscing dolore magna aliqua '
+                       'enim minim estudiat veniam siad venomous dolore'
+    }
+    return render(request, 'marketing.html', content)
 
 
 def mobile(request):
-    return render(request, 'mobile_dev.html')
+    content = {
+        'title': 'Мобильная разработка',
+        'description': 'Lorem ipsum dolor amet consecrate adipiscing dolore magna aliqua '
+                       'enim minim estudiat veniam siad venomous dolore'
+    }
+    return render(request, 'mobile_dev.html', content)
 
 
 def webpage(request):
-    return render(request, 'web_dev.html')
+    content = {
+        'title': 'Веб разработка',
+        'description': 'Lorem ipsum dolor amet consecrate adipiscing dolore magna aliqua '
+                       'enim minim estudiat veniam siad venomous dolore'
+    }
+    return render(request, 'web_dev.html', content)
 
 
 def about(request):
-    return render(request, 'about.html')
+    content = {
+        'title': 'О нас',
+        'description': 'Lorem ipsum dolor amet consecrate adipiscing dolore magna aliqua '
+                       'enim minim estudiat veniam siad venomous dolore'
+    }
+    return render(request, 'about.html', content)
