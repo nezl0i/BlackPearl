@@ -13,9 +13,11 @@
     <meta content="" name="author"/>
 
     <!-- GLOBAL MANDATORY STYLES -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
     <link href="{% static 'vendor/simple-line-icons/simple-line-icons.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'vendor/swiper/css/swiper.min.css' %}" rel="stylesheet" type="text/css"/>
 
     <!-- PAGE LEVEL PLUGIN STYLES -->
     <link href="{% static 'css/animate.css' %}" rel="stylesheet">
@@ -53,6 +55,19 @@
                     </a>
                 </div>
                 <!-- End Logo -->
+            </div>
+                        <!-- Авторизация/регистрация -->
+            <div class="collapse navbar-collapse nav-collapse">
+                <div>
+                    <ul style="margin-top: 30px" class="navbar-nav-right">
+                        <!-- конец Авторизация/регистрация  -->
+                        <button class="btn"><i class="fa fa-sign-in"
+                                               aria-hidden="true"></i></button>
+                        <button class="btn"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+                        <button class="btn"><i class="fa fa-heart" aria-hidden="true"></i></button>
+                        <button class="btn"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                    </ul>
+                </div>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
