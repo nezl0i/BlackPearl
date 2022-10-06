@@ -7,7 +7,9 @@ def index(request):
 
 def contact(request):
     content = {
-        'title': 'Контакты'
+        'title': 'Контакты',
+        'description': 'Lorem ipsum dolor amet consecrate adipiscing dolore magna aliqua '
+                       'enim minim estudiat veniam siad venomous dolore'
     }
     return render(request, 'contact.html', content)
 
