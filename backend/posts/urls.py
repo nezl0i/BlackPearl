@@ -1,7 +1,7 @@
 from django.urls import path
-from habs.views import index, design, contact, faq, marketing, mobile, webpage, about
+from posts.views import index, design, contact, faq, marketing, mobile, webpage, about
 
-app_name = 'hubs'
+app_name = 'posts'
 
 urlpatterns = [
     path('', index, name='index'),
