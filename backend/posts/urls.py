@@ -12,5 +12,5 @@ urlpatterns = [
     path('mobile/', mobile, name='mobile'),
     path('web/', webpage, name='webpage'),
     path('about/', about, name='about'),
-    path('login/', login, name='login'),
+    # path('login/', login, name='login'),
 ]

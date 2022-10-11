@@ -12,6 +12,15 @@
     <div class="parallax-content container">
 <div class="card-body">
             <h3 style="color: #fff;">Вход</h3>
+    <span class="mb-0 text-muted">
+        {% if msg %}
+            {{ msg | safe }}
+        {% else %}
+            Ваши учетные данные
+        {% endif %}
+</span>
+<br/>
+<br/>
 
             <form role="form" method="post" action="">
 
