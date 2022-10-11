@@ -9,8 +9,8 @@
     <title>BlackPearl - {{ title }}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <meta content="" name="description"/>
-    <meta content="" name="author"/>
+{#    <meta content="" name="description"/>#}
+{#    <meta content="" name="author"/>#}
 
     <!-- GLOBAL MANDATORY STYLES -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -61,8 +61,9 @@
                 <div>
                     <ul style="margin-top: 30px" class="navbar-nav-right">
                         <!-- конец Авторизация/регистрация  -->
-                        <button class="btn"><i class="fa fa-sign-in"
-                                               aria-hidden="true"></i></button>
+                        <button onclick=location.href="{% url 'posts:login' %}" class="btn">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                        </button>
                         <button class="btn"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
                         <button class="btn"><i class="fa fa-heart" aria-hidden="true"></i></button>
                         <button class="btn"><i class="fa fa-plus" aria-hidden="true"></i></button>

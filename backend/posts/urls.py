@@ -1,5 +1,5 @@
 from django.urls import path
-from posts.views import index, design, contact, faq, marketing, mobile, webpage, about
+from posts.views import index, design, contact, faq, marketing, mobile, webpage, about, login
 
 app_name = 'posts'
 
@@ -12,4 +12,5 @@ urlpatterns = [
     path('mobile/', mobile, name='mobile'),
     path('web/', webpage, name='webpage'),
     path('about/', about, name='about'),
+    path('login/', login, name='login'),
 ]
