@@ -1,21 +1,12 @@
 from datetime import datetime, timedelta
-
 import jwt
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-
 from backend import settings
 from .managers import UserManager
-
-
-class Role(models.Model):
-    name = models.CharField(max_length=20)
-
-    def __str__(self):
-        return self.name
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -26,8 +17,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(default=timezone.now)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    id_role = models.ForeignKey(Role, on_delete=models.CASCADE)
-    age = models.IntegerField()
+    age = models.IntegerField(blank=True, null=True)
     about_me = models.CharField(max_length=250)
     # avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
 
@@ -61,16 +51,3 @@ class User(AbstractBaseUser, PermissionsMixin):
         }, settings.SECRET_KEY, algorithm='HS256')
 
         return token
-#
-# class Users(models.Model):
-#     login = models.CharField(max_length=20)
-#     password = models.CharField(max_length=32)
-#     email = models.CharField(max_length=250)
-#     id_role = models.ForeignKey(Role, on_delete=models.CASCADE)
-#     surname = models.CharField(max_length=20)
-#     name = models.CharField(max_length=20)
-#     age = models.IntegerField()
-#     about_me = models.CharField(max_length=250)
-#
-#     def __str__(self):
-#         return self.login

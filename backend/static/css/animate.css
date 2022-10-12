@@ -3265,3 +3265,116 @@
   -webkit-animation-name: slideOutUp;
   animation-name: slideOutUp;
 }
+
+/* Base styles */
+.alert {
+  position: relative;
+  padding: 15px 20px;
+  border-radius: 0;
+}
+
+/* Provide class for links that match alerts */
+.alert-link {
+  font-weight: 600;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.alert-link:hover {
+  text-decoration: underline;
+}
+
+.alert-dismissible {
+  padding-right: 40px;
+}
+.alert-dismissible .close {
+  padding: 14px 10px;
+}
+
+.alert-primary {
+  color: #1c7aa5;
+  border-color: #b9e7fc;
+}
+.alert-primary hr {
+  border-top-color: #a1dffb;
+}
+.alert-primary .alert-link {
+  color: #155a79;
+}
+
+.alert-secondary {
+  color: #576972;
+  border-color: #d8dee0;
+}
+.alert-secondary hr {
+  border-top-color: #cad2d5;
+}
+.alert-secondary .alert-link {
+  color: #414e55;
+}
+
+.alert-success {
+  color: #299b85;
+  border-color: #c0f9eb;
+}
+.alert-success hr {
+  border-top-color: #a9f7e4;
+}
+.alert-success .alert-link {
+  color: #1e7362;
+}
+
+.alert-info {
+  color: #3b85a0;
+  border-color: #c9edf9;
+}
+.alert-info hr {
+  border-top-color: #b2e5f6;
+}
+.alert-info .alert-link {
+  color: #2d667b;
+}
+
+.alert-warning {
+  color: #99873c;
+  border-color: #fceec4;
+}
+.alert-warning hr {
+  border-top-color: #fbe7ac;
+}
+.alert-warning .alert-link {
+  color: #74672e;
+}
+
+.alert-danger {
+  color: #994442;
+  border-color: #fccac7;
+}
+.alert-danger hr {
+  border-top-color: #fbb3af;
+}
+.alert-danger .alert-link {
+  color: #753433;
+}
+
+.alert-light {
+  color: #98a0a4;
+  border-color: #fbfbfb;
+}
+.alert-light hr {
+  border-top-color: #eeeeee;
+}
+.alert-light .alert-link {
+  color: #7d878c;
+}
+
+.alert-dark {
+  color: #37474f;
+  border-color: #c7cbce;
+}
+.alert-dark hr {
+  border-top-color: #b9bec2;
+}
+.alert-dark .alert-link {
+  color: #222c31;
+}
+
