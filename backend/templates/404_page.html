@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html>
-<!--========== 404 ==========-->
-<head class="body">
-    <meta charset="utf-8">
-    <title>Код страницы 404</title>
-    <!-- PAGE STYLES -->
-    <link rel="stylesheet" href="css/404_page.css" type="text/css"/>
+{% extends 'base.html' %}
+{% load static %}
 
-</head>
-<body>
+{% block css %}<link rel="stylesheet" href="css/404_page.css" type="text/css"/>{% endblock %}
+{% block content %}
+
 <div class="figure">
     <div class="error-no"><span>4</span>
         <div class="moon"></div>
@@ -20,6 +15,6 @@
         </a>
     </div>
 </div>
-</body>
-</html>
+
+{% endblock %}
 <!--========== 404 end ==========-->
