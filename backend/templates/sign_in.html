@@ -1,29 +1,64 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Форма авторизации</title>
-    <link rel="stylesheet" href="css/sing_in_form.css" type="text/css">
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
 
+{% block content %}
+{#    {% if messages %}#}
+{#        {% for message in messages %}#}
+{#            <div class="alert {{ message.tags }} m-2" id="msg" role="alert">#}
+{#                {{ message }}#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    {% endif %}#}
 
-<div id="login">
-    <form action="javascript:void(0);" method="get">
-        <fieldset class="clearfix">
-            <p><span class="fontawesome-user"></span><input type="text" value="Логин"></p>
-            <p><span class="fontawesome-lock"></span><input type="password" maxlength="25" size="40" name="пароль"
-                                                            value="password"></p>
-            <p><input type="submit" value="ВОЙТИ"></p>
-        </fieldset>
-    </form>
-    <p>Нет аккаунта? &nbsp;&nbsp;<a href="login.html">Регистрация</a><span
-            class="fontawesome-arrow-right"></span></p>
-</div>
-<div class="child">
-    <a href="index.html">
-        <p>вернуться на главную</p>
-    </a>
-</div>
-</body>
-</html>
+    <div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/1920x1080/01.jpg' %}">
+        <div class="parallax-content container">
+            <div class="card-body">
+                <h3 style="color: #fff;">Регистрация</h3>
+
+                <form role="form" method="post" action="">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    {{ form.username }}
+                </div>
+
+                <span class="text-error">{{ form.username.errors }}</span>
+
+                <div class="input-group mb-3">
+                    {{ form.email }}
+                </div>
+                <span class="text-error">{{ form.email.errors }}</span>
+
+                <div class="input-group mb-4">
+                    {{ form.password1 }}
+                </div>
+                <span class="text-error">{{ form.password1.errors }}</span>
+
+                <div class="input-group mb-4">
+                    {{ form.password2 }}
+                </div>
+                <span class="text-error">{{ form.password2.errors }}</span>
+
+                <div class="form-group">
+                    <div class="checkbox">
+                        <input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-a1" checked="">
+                        <label for="checkbox-fill-a1" class="mb-0 text-muted"> Согласен с <a href="#">условиями</a></label>
+                    </div>
+                </div>
+                <button type="submit" name="register" class="btn btn-primary shadow-2 mb-4">Зарегистрироваться
+                </button>
+
+            </form>
+
+            <p class="mb-0 text-muted">Уже есть аккаунт? <a href="{% url 'users:login' %}">Вход</a></p>
+            <br/>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'vendor/jquery.parallax.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'vendor/swiper/js/swiper.jquery.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/components/swiper.min.js' %}" type="text/javascript"></script>
+{% endblock %}
