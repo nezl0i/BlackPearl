@@ -49,5 +49,5 @@ class User(AbstractBaseUser, PermissionsMixin):
             'id': self.pk,
             'exp': int(dt.strftime('%s'))
         }, settings.SECRET_KEY, algorithm='HS256')
-
+        print(token)
         return token

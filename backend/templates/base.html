@@ -9,8 +9,8 @@
     <title>BlackPearl - {{ title }}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
-{#    <meta content="" name="description"/>#}
-{#    <meta content="" name="author"/>#}
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
 
     <!-- GLOBAL MANDATORY STYLES -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -21,7 +21,7 @@
 
     <!-- PAGE LEVEL PLUGIN STYLES -->
     <link href="{% static 'css/animate.css' %}" rel="stylesheet">
-{#    <link href="{% static 'css/style.css' %}" rel="stylesheet">#}
+    {#    <link href="{% static 'css/style.css' %}" rel="stylesheet">#}
 
     <!-- THEME STYLES -->
     <link href="{% static 'css/layout.min.css' %}" rel="stylesheet" type="text/css"/>
@@ -61,17 +61,24 @@
             <div class="collapse navbar-collapse nav-collapse">
                 <div>
                     <ul style="margin-top: 30px" class="navbar-nav-right">
-                        <!-- конец Авторизация/регистрация  -->
-                        <button onclick=location.href="{% url 'users:login' %}" class="btn">
-                            <i class="fa fa-sign-in" aria-hidden="true"></i>
-                        </button>
-                        <button class="btn"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+
                         <button class="btn"><i class="fa fa-heart" aria-hidden="true"></i></button>
                         <button class="btn"><i class="fa fa-plus" aria-hidden="true"></i></button>
+
+                        {% if user.is_authenticated %}
+                            <i style="color: #fff;">{{ user.username|default:user.email }}</i>
+                            <button onclick=location.href="{% url 'users:logout' %}" class="btn">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                            </button>
+                        {% else %}
+                            <button onclick=location.href="{% url 'users:login' %}" class="btn">
+                                <i class="fa fa-sign-in" aria-hidden="true"></i>
+                            </button>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
-
+            <!-- конец Авторизация/регистрация  -->
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse nav-collapse">
                 <div class="menu-container">
@@ -89,8 +96,8 @@
                         <li class="nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'posts:about' %}">O
                             нас</a></li>
                         <li class="nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'posts:contact' %}">Контакты</a>
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'posts:faq' %}">Часто
-                            задаваемые вопросы</a></li>
+                        <li class="nav-item"><a class="nav-item-child nav-item-hover"
+                                                href="{% url 'posts:faq' %}">FAQ</a></li>
                     </ul>
                 </div>
             </div>
@@ -112,14 +119,22 @@
                 <div class="col-sm-2 sm-margin-b-50">
                     <!-- List -->
                     <ul class="list-unstyled footer-list">
-                        <li class="footer-list-item"><a class="footer-list-link" href="#">Home</a></li>
-                        <li class="footer-list-item"><a class="footer-list-link" href="#">About</a></li>
-                        <li class="footer-list-item"><a class="footer-list-link" href="#">Products</a></li>
-                        <li class="footer-list-item"><a class="footer-list-link" href="#">Pricing</a></li>
-                        <li class="footer-list-item"><a class="footer-list-link" href="#">Clients</a></li>
-                        <li class="footer-list-item"><a class="footer-list-link" href="#">Careers</a></li>
-                        <li class="footer-list-item"><a class="footer-list-link" href="#">Contact</a></li>
-                        <li class="footer-list-item"><a class="footer-list-link" href="#">Terms</a></li>
+                        <li class="footer-list-item"><a class="footer-list-link"
+                                                        href="{% url 'posts:index' %}">Главная</a></li>
+                        <li class="footer-list-item"><a class="footer-list-link"
+                                                        href="{% url 'posts:design' %}">Дизайн</a></li>
+                        <li class="footer-list-item"><a class="footer-list-link" href="{% url 'posts:webpage' %}">Веб-разработка</a>
+                        </li>
+                        <li class="footer-list-item"><a class="footer-list-link" href="{% url 'posts:mobile' %}">Мобильная
+                            разработка</a></li>
+                        <li class="footer-list-item"><a class="footer-list-link" href="{% url 'posts:marketing' %}">Маркетинг</a>
+                        </li>
+                        <li class="footer-list-item"><a class="footer-list-link" href="{% url 'posts:about' %}">О
+                            нас</a></li>
+                        <li class="footer-list-item"><a class="footer-list-link" href="{% url 'posts:contact' %}">Контакты</a>
+                        </li>
+                        <li class="footer-list-item"><a class="footer-list-link" href="{% url 'posts:faq' %}">FAQ</a>
+                        </li>
                     </ul>
                     <!-- End List -->
                 </div>
@@ -135,11 +150,19 @@
                 </div>
                 <div class="col-sm-5 sm-margin-b-30">
                     <h2 class="color-white">Send Us A Note</h2>
-                    <input type="text" class="form-control footer-input margin-b-20" placeholder="Name" required>
-                    <input type="email" class="form-control footer-input margin-b-20" placeholder="Email" required>
-                    <input type="text" class="form-control footer-input margin-b-20" placeholder="Phone" required>
-                    <textarea class="form-control footer-input margin-b-30" rows="6" placeholder="Message"
-                              required></textarea>
+                    <label>
+                        <input type="text" class="form-control footer-input margin-b-20" placeholder="Name" required>
+                    </label>
+                    <label>
+                        <input type="email" class="form-control footer-input margin-b-20" placeholder="Email" required>
+                    </label>
+                    <label>
+                        <input type="text" class="form-control footer-input margin-b-20" placeholder="Phone" required>
+                    </label>
+                    <label>
+                        <textarea class="form-control footer-input margin-b-30" rows="6" placeholder="Message"
+                                  required></textarea>
+                    </label>
                     <button type="submit" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Submit</button>
                 </div>
             </div>

@@ -1,7 +1,11 @@
 from django.contrib.auth import authenticate, login
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 from users.forms import LoginForm, SignUpForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib import auth
 
 
 def login_page(request):
@@ -52,3 +56,8 @@ def register_user(request):
     }
 
     return render(request, "sign_in.html", context)
+
+
+def logout(request):
+    auth.logout(request)
+    return render(request, 'index.html')
