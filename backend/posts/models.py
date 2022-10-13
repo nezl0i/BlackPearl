@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from users.models import Users
+from users.models import User
 
 from taggit.managers import TaggableManager
 
@@ -27,7 +27,7 @@ class Post(models.Model):
     # теги поста
     tags = TaggableManager()
     author = models.ForeignKey(
-        Users,
+        User,
         on_delete=models.CASCADE,
         related_name='posts'
     )
@@ -49,7 +49,7 @@ class Post(models.Model):
 
 class PostComment(models.Model):
     id_post = models.ForeignKey(Post, on_delete = models.CASCADE)
-    id_post_comments = models.ForeignKey('self',null=True, blank=True, on_delete = models.SET_NULL)
+    post_comments = models.ForeignKey('self',null=True, blank=True, on_delete = models.SET_NULL)
     body = models.CharField(max_length=250)
 
     def __str__(self):
