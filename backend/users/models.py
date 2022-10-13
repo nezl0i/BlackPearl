@@ -60,8 +60,8 @@ class BanStatus(models.Model):
 
 
 class BanList(models.Model):
-    id_ban_status = models.ForeignKey(BanStatus, on_delete = models.CASCADE)
-    id_user = models.ForeignKey(User, on_delete = models.CASCADE)
+    id_ban_status = models.ForeignKey(BanStatus, on_delete=models.CASCADE)
+    id_user = models.ForeignKey(User, on_delete=models.CASCADE)
     up_to_date = models.DateTimeField(default=timezone.now)
     created_at = models.DateTimeField(default=timezone.now)
 
