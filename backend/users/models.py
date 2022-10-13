@@ -49,5 +49,21 @@ class User(AbstractBaseUser, PermissionsMixin):
             'id': self.pk,
             'exp': int(dt.strftime('%s'))
         }, settings.SECRET_KEY, algorithm='HS256')
-        print(token)
         return token
+
+
+class BanStatus(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+
+class BanList(models.Model):
+    id_ban_status = models.ForeignKey(BanStatus, on_delete = models.CASCADE)
+    id_user = models.ForeignKey(User, on_delete = models.CASCADE)
+    up_to_date = models.DateTimeField(default=timezone.now)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.id_ban_status
