@@ -1,0 +1,13 @@
+<div class="posts">
+    {% for object in object_list %}
+    <div style="border-style:dashed">
+        <h3>
+            {{ object.header}}
+        </h3>
+        <p>
+            {{ object.body|safe}}
+        </p>
+    </div>
+    {% endfor %}
+
+</div>

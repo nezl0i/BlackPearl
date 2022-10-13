@@ -43,6 +43,9 @@ INSTALLED_APPS = [
 
     'posts',
     'users',
+    'django_summernote',
+    'backend',
+
 ]
 
 MIDDLEWARE = [
@@ -127,6 +130,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+STATIC_ROOT = 'collectstatic'
 
 BASE_URL = 'http://localhost:8008'
 
@@ -162,4 +166,33 @@ SIMPLE_JWT = {
     "SIGNING_KEY": SECRET_KEY,
     "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+}
+
+MEDIA_URL='/media/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+
+SUMMERNOTE_THEME_FILES = {
+    'bs3': {
+        'base_css': (
+            # '//stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
+            '/static/summernote/bootstrap.min.css',
+        ),
+        'base_js': (
+            # '//code.jquery.com/jquery-3.3.1.min.js',
+            # 's',
+            '/static/summernote/jquery-3.3.1.min.js',
+            '/static/summernote/bootstrap.min.js',
+        ),
+        'default_css': (
+            'summernote/summernote.css',
+            'summernote/django_summernote.css',
+        ),
+        'default_js': (
+            'summernote/jquery.ui.widget.js',
+            'summernote/jquery.iframe-transport.js',
+            'summernote/jquery.fileupload.js',
+            'summernote/summernote.min.js',
+            'summernote/ResizeSensor.js',
+        ),
+    },
 }

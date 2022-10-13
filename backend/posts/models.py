@@ -21,7 +21,7 @@ class Post(models.Model):
     # поле для человеко читаемой ссылки
     slug = models.SlugField(
         max_length=250,
-        unique_for_date='publish'
+        unique_for_date='date_creation'
     )
     # теги поста
     tags = TaggableManager()

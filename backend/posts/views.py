@@ -3,6 +3,8 @@ from django.contrib.auth import authenticate, login
 from users.forms import LoginForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.views.generic import ListView
+from .models import Post
 
 
 def index(request):
@@ -70,3 +72,9 @@ def about(request):
                        'enim minim estudiat veniam siad venomous dolore'
     }
     return render(request, 'about.html', content)
+
+
+class TestPosts(ListView):
+    template_name = 'includes/test-posts.html'
+    model = Post
+
