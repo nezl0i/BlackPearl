@@ -1,6 +1,7 @@
-from django.urls import path
+from django.urls import path, re_path
+from django.contrib.auth.decorators import login_required
 from posts.views import index, design, contact, faq, marketing, mobile, webpage, about, login
-from .views import TestPosts
+from .views import TestPosts, CreatePostView
 
 app_name = 'posts'
 
@@ -13,7 +14,8 @@ urlpatterns = [
     path('mobile/', mobile, name='mobile'),
     path('web/', webpage, name='webpage'),
     path('about/', about, name='about'),
-    path('testposts/', TestPosts.as_view(), name='testpost'),
+    path('testposts/', TestPosts.as_view(), name='allposts'),
+    re_path('create-post/', login_required(CreatePostView.as_view()), name='create-post')
 
     # path('login/', login, name='login'),
 ]

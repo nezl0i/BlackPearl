@@ -1,10 +1,14 @@
 
 from django.contrib.auth import authenticate, login
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from users.forms import LoginForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.views.generic import ListView
 from .models import Post
+from django.views.generic.edit import FormView
+from .forms import PostForm
 
 
 def index(request):
@@ -77,4 +81,26 @@ def about(request):
 class TestPosts(ListView):
     template_name = 'includes/test-posts.html'
     model = Post
+
+
+class CreatePostView(FormView):
+    form_class = PostForm
+    template_name = 'create-post.html'
+
+    # def get_form_kwargs(self):
+    #     # pass "user" keyword argument with the current user to your form
+    #     kwargs = super(MyFormView, self).get_form_kwargs()
+    #     kwargs['user'] = self.request.user
+    #     return kwargs
+    def post(self, request, *args, **kwargs):
+        form = PostForm(request.POST)
+        if form.is_valid():
+            from transliterate import translit
+            import re
+            post = form.save(commit=False)
+            post.author = request.user
+            post.slug = re.sub(r' +','-',translit(post.header, language_code='ru', reversed=True))
+            post.save()
+            return HttpResponseRedirect(reverse('posts:allposts'))
+        return HttpResponseRedirect(reverse('posts:create-post'), kwargs={'form': form})
 
