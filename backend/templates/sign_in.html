@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}<link rel="stylesheet" href="{% static 'css/sign_in.css' %}" type="text/css"/>{% endblock %}
+{% block content %}
+{#    {% if messages %}#}
+{#        {% for message in messages %}#}
+{#            <div class="alert {{ message.tags }} m-2" id="msg" role="alert">#}
+{#                {{ message }}#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    {% endif %}#}
+
+    <div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/1920x1080/01.jpg' %}">
+        <div class="parallax-content container text-center">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div class="card align-items-center">
+
+                        <h3 class="color-white">Регистрация</h3>
+                        <form role="form" method="post" action="">
+
+                            {% csrf_token %}
+
+                            <div class="form-outline margin-b-10">
+                                {{ form.username }}
+                            </div>
+                            <span class="text-error">{{ form.username.errors }}</span>
+
+                            <div class="form-outline margin-b-10">
+                                {{ form.email }}
+                            </div>
+                            <span class="text-error">{{ form.email.errors }}</span>
+
+                            <div class="form-outline margin-b-10">
+                                {{ form.password1 }}
+                            </div>
+                            <span class="text-error">{{ form.password1.errors }}</span>
+
+                            <div class="form-outline">
+                                {{ form.password2 }}
+                            </div>
+                            <span class="text-error">{{ form.password2.errors }}</span>
+
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-a1" checked="">
+                                    <label for="checkbox-fill-a1" class="text-muted"> Согласен с <a href="#">условиями</a></label>
+                                </div>
+                            </div>
+                            <button type="submit" name="register" class="btn btn-primary btn-block margin-b-10">Зарегистрироваться</button>
+
+                        </form>
+                        <p class="mb-0 text-muted">Уже есть аккаунт? <a href="{% url 'users:login' %}">Вход</a></p>
+                        <br/>
+
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'vendor/jquery.parallax.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'vendor/swiper/js/swiper.jquery.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/components/swiper.min.js' %}" type="text/javascript"></script>
+{% endblock %}
