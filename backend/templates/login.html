@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block css %}<link rel="stylesheet" href="{% static 'css/sign_in.css' %}" type="text/css"/>{% endblock %}
 {% block content %}
 {#    {% if messages %}#}
 {#        {% for message in messages %}#}
@@ -11,34 +12,40 @@
 {#    {% endif %}#}
 
     <div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/1920x1080/01.jpg' %}">
-        <div class="parallax-content container">
-            <div class="card-body">
-                <h3 style="color: #fff;">Вход</h3>
+        <div class="parallax-content container text-center">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div class="card align-items-center">
 
-                <form role="form" method="post" action="">
+                        <h3 class="color-white">Вход</h3>
+                        <form role="form" method="post" action="">
 
-                    {% csrf_token %}
+                            {% csrf_token %}
 
-                    <div class="input-group mb-3">
-                        {{ form.username }}
+                            <div class="form-outline margin-b-10">
+                                {{ form.username }}
+                            </div>
+                            <div class="form-outline">
+                                {{ form.password }}
+                            </div>
+
+                            <div class="form-check d-flex justify-content-center">
+                                <div class="checkbox checkbox-fill d-inline">
+                                    <input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-a1" checked="">
+                                    <label for="checkbox-fill-a1" class="text-muted">Запомнить</label>
+                                </div>
+                            </div>
+
+                            <button type="submit" name="login" class="btn btn-primary btn-block margin-b-10">Войти</button>
+                        </form>
+                        <p class="mb-0 text-muted">Нет аккаунта? <a href="{% url 'users:register' %}">Зарегистрироваться</a></p>
+                        <br/>
+
                     </div>
-
-                    <div class="input-group mb-4">
-                        {{ form.password }}
-                    </div>
-
-                    <div class="form-group text-left">
-                        <div class="checkbox checkbox-fill d-inline">
-                            <input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-a1" checked="">
-                            <label for="checkbox-fill-a1" class="mb-0 text-muted">Запомнить</label>
-                        </div>
-                    </div>
-                    <button type="submit" name="login" class="btn btn-primary shadow-2 mb-4">Войти</button>
-
-                </form>
+                </div>
+                <div class="col-md-4"></div>
             </div>
-            <p class="mb-0 text-muted">Нет аккаунта? <a href="{% url 'users:register' %}">Зарегистрироваться</a></p>
-            <br/>
         </div>
 
     </div>
