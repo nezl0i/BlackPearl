@@ -45,3 +45,4 @@ urllib3==1.26.12
 wcwidth==0.2.5
 wrapt==1.14.1
 django-summernote
+transliterate
