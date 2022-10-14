@@ -87,7 +87,7 @@ class TestPosts(ListView):
 
 class CreatePostView(FormView):
     form_class = PostForm
-    template_name = 'create-post.html'
+    template_name = 'posts/create-post.html'
 
     def post(self, request, *args, **kwargs):
         form = PostForm(request.POST)
