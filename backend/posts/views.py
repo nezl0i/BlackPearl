@@ -6,9 +6,10 @@ from users.forms import LoginForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.views.generic import ListView
-from .models import Post
+from .models import Post, Category
 from django.views.generic.edit import FormView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
+from django.views.generic import TemplateView
 from .forms import PostForm
 from django.shortcuts import get_object_or_404
 
@@ -80,11 +81,6 @@ def about(request):
     return render(request, 'about.html', content)
 
 
-class TestPosts(ListView):
-    template_name = 'posts/allposts.html'
-    model = Post
-
-
 class CreatePostView(FormView):
     form_class = PostForm
     template_name = 'posts/create-post.html'
@@ -131,5 +127,20 @@ class PostFullView(DetailView):
         except (TypeError, KeyError):
             pass
         
+        return context
+    
+class CategoryPostsView(TemplateView):
+    template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if kwargs.get('category'):
+            try:
+                context["object_list"] = Post.objects.filter(id_category__name = kwargs.get('category'))
+            except (TypeError, KeyError):
+                context["object_list"] = []
+        else:
+            context["object_list"] = Post.objects.all()
+
         return context
     
