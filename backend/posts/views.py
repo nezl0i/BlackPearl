@@ -7,8 +7,10 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.views.generic import ListView
 from .models import Post
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, UpdateView, DeleteView
+from django.views.generic.detail import DetailView
 from .forms import PostForm
+from django.shortcuts import get_object_or_404
 
 
 def index(request):
@@ -79,7 +81,7 @@ def about(request):
 
 
 class TestPosts(ListView):
-    template_name = 'includes/test-posts.html'
+    template_name = 'posts/allposts.html'
     model = Post
 
 
@@ -87,20 +89,47 @@ class CreatePostView(FormView):
     form_class = PostForm
     template_name = 'create-post.html'
 
-    # def get_form_kwargs(self):
-    #     # pass "user" keyword argument with the current user to your form
-    #     kwargs = super(MyFormView, self).get_form_kwargs()
-    #     kwargs['user'] = self.request.user
-    #     return kwargs
     def post(self, request, *args, **kwargs):
         form = PostForm(request.POST)
         if form.is_valid():
-            from transliterate import translit
-            import re
             post = form.save(commit=False)
             post.author = request.user
-            post.slug = re.sub(r' +','-',translit(post.header, language_code='ru', reversed=True))
             post.save()
             return HttpResponseRedirect(reverse('posts:allposts'))
         return HttpResponseRedirect(reverse('posts:create-post'), kwargs={'form': form})
 
+
+class UpdatePostView(UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'posts/create-post.html'
+    success_url = '/me/posts'
+
+
+class DeletePostView(DeleteView):
+    model = Post
+    template_name = 'posts/delete-post.html'
+    success_url = '/me/posts'
+
+class MyPostsView(ListView):
+    template_name = 'posts/myposts.html'
+    model = Post
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["object_list"] = Post.objects.filter(author=self.request.user)
+        return context
+
+
+class PostFullView(DetailView):
+    model = Post
+    template_name = 'posts/postview.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            context["object"] = get_object_or_404(Post, slug = kwargs["slug"])
+        except (TypeError, KeyError):
+            pass
+        
+        return context
+    
