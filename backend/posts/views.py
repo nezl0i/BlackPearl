@@ -82,6 +82,10 @@ def about(request):
 
 
 class CreatePostView(FormView):
+    """
+    View for Post creation
+    Field author hidden, we get it from :request
+    """
     form_class = PostForm
     template_name = 'posts/create-post.html'
 
@@ -96,6 +100,10 @@ class CreatePostView(FormView):
 
 
 class UpdatePostView(UpdateView):
+    """
+    Class Based view for update Post
+    :pk post needed
+    """
     model = Post
     form_class = PostForm
     template_name = 'posts/create-post.html'
@@ -103,11 +111,19 @@ class UpdatePostView(UpdateView):
 
 
 class DeletePostView(DeleteView):
+    """
+    Class Based view for delete Post
+    :pk post needed
+    """
     model = Post
     template_name = 'posts/delete-post.html'
     success_url = '/me/posts'
 
 class MyPostsView(ListView):
+    """
+    Class Based view for show user posts
+    :pk user needed
+    """
     template_name = 'posts/myposts.html'
     model = Post
     def get_context_data(self, **kwargs):
@@ -117,6 +133,10 @@ class MyPostsView(ListView):
 
 
 class PostFullView(DetailView):
+    """
+    Class Based details view for Post
+    :slug post needed 
+    """
     model = Post
     template_name = 'posts/postview.html'
 
@@ -130,6 +150,12 @@ class PostFullView(DetailView):
         return context
     
 class CategoryPostsView(TemplateView):
+    """
+    Class Based view for show all Posts or filtered by category
+    :category name needed for filtering
+    
+    """
+
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):

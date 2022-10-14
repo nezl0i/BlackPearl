@@ -8,4 +8,7 @@ from django.template import RequestContext
 #     })
 
 def categories(request):
+    """
+    Returns all available categories to template
+    """
     return {"categories": Category.objects.all()}
