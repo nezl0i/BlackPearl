@@ -95,7 +95,7 @@ class CreatePostView(FormView):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            return HttpResponseRedirect(reverse('posts:allposts'))
+            return HttpResponseRedirect(reverse('posts:index'))
         return HttpResponseRedirect(reverse('posts:create-post'), kwargs={'form': form})
 
 
@@ -119,6 +119,7 @@ class DeletePostView(DeleteView):
     template_name = 'posts/delete-post.html'
     success_url = '/me/posts'
 
+
 class MyPostsView(ListView):
     """
     Class Based view for show user posts
@@ -126,6 +127,7 @@ class MyPostsView(ListView):
     """
     template_name = 'posts/myposts.html'
     model = Post
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["object_list"] = Post.objects.filter(author=self.request.user)
@@ -143,17 +145,18 @@ class PostFullView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         try:
-            context["object"] = get_object_or_404(Post, slug = kwargs["slug"])
+            context["object"] = get_object_or_404(Post, slug=kwargs["slug"])
         except (TypeError, KeyError):
             pass
-        
+
         return context
-    
+
+
 class CategoryPostsView(TemplateView):
     """
     Class Based view for show all Posts or filtered by category
     :category name needed for filtering
-    
+
     """
 
     template_name = 'index.html'
@@ -162,11 +165,11 @@ class CategoryPostsView(TemplateView):
         context = super().get_context_data(**kwargs)
         if kwargs.get('category'):
             try:
-                context["object_list"] = Post.objects.filter(id_category__name = kwargs.get('category'))
+                context["object_list"] = Post.objects.filter(
+                    id_category__name=kwargs.get('category'))
             except (TypeError, KeyError):
                 context["object_list"] = []
         else:
             context["object_list"] = Post.objects.all()
 
         return context
-    
