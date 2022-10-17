@@ -146,8 +146,10 @@ class PostFullView(DetailView):
         context = super().get_context_data(**kwargs)
         try:
             context["object"] = get_object_or_404(Post, slug=kwargs["slug"])
+            context["title"] = Category.objects.get('name')
         except (TypeError, KeyError):
             pass
+        print(context)
         return context
 
 
