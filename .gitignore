@@ -129,3 +129,6 @@ dmypy.json
 .pyre/
 
 .idea
+/backend/collectstatic/*
+migrations/
+backend/media/*

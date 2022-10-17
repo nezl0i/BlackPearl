@@ -85,14 +85,13 @@
                     <ul class="navbar-nav navbar-nav-right">
                         <li class="nav-item"><a class="nav-item-child nav-item-hover active"
                                                 href="{% url 'posts:index' %}">Сегодня</a></li>
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'posts:design' %}">Дизайн</a>
+                        {% for category in categories %}
+                        <li class="nav-item">
+                            <a class="nav-item-child nav-item-hover" href="{% url 'posts:category-posts' category.name %}">
+                                {{category.name}}
+                            </a>
                         </li>
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover"
-                                                href="{% url 'posts:webpage' %}">Веб-разработка</a></li>
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'posts:mobile' %}">Мобильная
-                            разработка</a></li>
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover"
-                                                href="{% url 'posts:marketing' %}">Маркетинг</a></li>
+                        {% endfor %}
                         <li class="nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'posts:about' %}">O
                             нас</a></li>
                         <li class="nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'posts:contact' %}">Контакты</a>
@@ -121,14 +120,10 @@
                     <ul class="list-unstyled footer-list">
                         <li class="footer-list-item"><a class="footer-list-link"
                                                         href="{% url 'posts:index' %}">Главная</a></li>
+                        {% for category in categories %}
                         <li class="footer-list-item"><a class="footer-list-link"
-                                                        href="{% url 'posts:design' %}">Дизайн</a></li>
-                        <li class="footer-list-item"><a class="footer-list-link" href="{% url 'posts:webpage' %}">Веб-разработка</a>
-                        </li>
-                        <li class="footer-list-item"><a class="footer-list-link" href="{% url 'posts:mobile' %}">Мобильная
-                            разработка</a></li>
-                        <li class="footer-list-item"><a class="footer-list-link" href="{% url 'posts:marketing' %}">Маркетинг</a>
-                        </li>
+                                                        href="{% url 'posts:category-posts' category.name %}">{{ category.name }}</a></li>
+                        {% endfor %}
                         <li class="footer-list-item"><a class="footer-list-link" href="{% url 'posts:about' %}">О
                             нас</a></li>
                         <li class="footer-list-item"><a class="footer-list-link" href="{% url 'posts:contact' %}">Контакты</a>
