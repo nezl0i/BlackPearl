@@ -1,10 +1,7 @@
 from django.db import models
 from django.utils import timezone
-from django.utils.text import slugify
 from users.models import User
 from taggit.managers import TaggableManager
-from transliterate import translit
-import re
 
 
 class Category(models.Model):
@@ -24,8 +21,7 @@ class Post(models.Model):
     # поле для человеко читаемой ссылки
     slug = models.SlugField(
         max_length=250,
-        unique = True,
-        blank = True
+        unique_for_date='publish'
     )
     # теги поста
     tags = TaggableManager()
@@ -42,14 +38,6 @@ class Post(models.Model):
         default='draft'
     )
     id_category = models.ForeignKey(Category, on_delete=models.CASCADE)
-
-    def _create_unique_slug(self):
-        magic = str(int(self.date_creation.timestamp()))
-        return slugify(re.sub(r' +','-',translit(self.header, language_code='ru', reversed=True))) + magic
-
-    def save(self, *args, **kwargs):
-        self.slug = self._create_unique_slug()
-        super(Post, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.header
