@@ -66,7 +66,7 @@
                         <button class="btn"><i class="fa fa-plus" aria-hidden="true"></i></button>
 
                         {% if user.is_authenticated %}
-                            <i style="color: #fff;">{{ user.username|default:user.email }}</i>
+                            <i> <a style="color: #fff;" href="{% url 'users:profile' user.pk %}">{{ user.username|default:user.email }} </a></i>
                             <button onclick=location.href="{% url 'users:logout' %}" class="btn">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                             </button>
