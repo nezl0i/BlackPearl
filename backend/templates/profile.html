@@ -12,14 +12,8 @@
                         <div class="circle">
                             <img src="{% static 'img/face.jpg' %}">
                         </div>
-                        <h2 class="color-white">{{ user.username }}</h2>
-                        {% if user.is_superuser %}
-                            <h3 class="color-white">Администратор</h3>
-                        {% elif user.is_staff %}
-                            <h3 class="color-white">Модератор</h3>
-                        {% else %}
-                            <h3 class="color-white">Пользователь</h3>
-                        {% endif %}
+                        <h2 class="color-white">Маркус Дой</h2>
+                        <h3 class="color-white">РАЗРАБОТЧИК</h3>
                         <div class="text-left">
                             <ul class="list-unstyled">
                                 <li><a class="list-link" href="#">Настройки аккаунта</a></li>
@@ -44,41 +38,40 @@
                         <div class="tab-content" id="tabContent">
                             <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <form role="form" method="post" action="" class="text-left">
-                                    {% csrf_token %}
+{#                                    {% csrf_token %}#}
                                     <div class="form-outline margin-b-10">
+{#                                        {{ form.email }}#}
                                         <label class="color-white" for="id_email">Email</label>
-                                        {{ form.email }}
-{#                                        <input type="text" name="email" id="id_email"#}
-{#                                               class="form-control" placeholder="Email">#}
+                                        <input type="text" name="email" id="id_email"
+                                               class="form-control" placeholder="Email">
                                     </div>
                                     <div class="form-outline margin-b-10">
-
+{#                                        {{ form.username }}#}
                                         <label class="color-white" for="id_username">Username</label>
-                                        {{ form.username }}
-{#                                        <input type="text" name="username" id="id_username"#}
-{#                                               class="form-control" placeholder="Username">#}
+                                        <input type="text" name="username" id="id_username"
+                                               class="form-control" placeholder="Username">
                                     </div>
                                     <div class="form-outline margin-b-10">
+{#                                        {{ form.first_name }}#}
                                         <label class="color-white" for="id_first_name">First name</label>
-                                        {{ form.first_name }}
-{#                                        <input type="text" name="first_name" id="id_first_name"#}
-{#                                               class="form-control" placeholder="First name">#}
+                                        <input type="text" name="first_name" id="id_first_name"
+                                               class="form-control" placeholder="First name">
                                     </div>
                                     <div class="form-outline margin-b-10">
+{#                                        {{ form.last_name }}#}
                                         <label class="color-white" for="id_last_name">Last name</label>
-                                        {{ form.last_name }}
-{#                                        <input type="text" name="last_name" id="id_last_name"#}
-{#                                               class="form-control" placeholder="Last name">#}
+                                        <input type="text" name="last_name" id="id_last_name"
+                                               class="form-control" placeholder="Last name">
                                     </div>
                                     <div class="form-outline margin-b-10">
+{#                                        {{ form.age }}#}
                                         <label class="color-white" for="id_age">Age</label>
-                                        {{ user.age }}
                                         <input type="number" name="age" id="id_age"
                                                class="form-control" placeholder="Age">
                                     </div>
                                     <div class="form-outline margin-b-20">
+{#                                        {{ form.about_me }}#}
                                         <label class="color-white" for="id_about_me">About me</label>
-                                        {{ form.about_me }}
                                         <input type="text" name="about_me" id="id_about_me"
                                                 class="form-control" placeholder="About me">
                                     </div>
@@ -88,22 +81,22 @@
                             <div class="tab-pane" id="security" role="tabpanel" aria-labelledby="security-tab">
                                 <h3 class="color-white margin-t-20">Смена пароля</h3>
                                 <form role="form" method="post" action="" class="text-left">
-                                    {% csrf_token %}
+{#                                    {% csrf_token %}#}
                                     <div class="form-outline margin-b-10">
+{#                                        {{ form.old_password }}#}
                                         <label class="color-white" for="id_password">Текущий пароль</label>
-                                        {{ form.old_password }}
                                         <input type="password" name="old_password" id="id_password"
                                                class="form-control" placeholder="Текущий пароль">
                                     </div>
                                     <div class="form-outline margin-b-10">
+{#                                        {{ form.password1 }}#}
                                         <label class="color-white" for="id_password1">Новый пароль</label>
-                                        {{ form.password1 }}
                                         <input type="password" name="id_password1" id="id_password1"
                                                class="form-control" placeholder="Новый пароль">
                                     </div>
                                     <div class="form-outline margin-b-20">
+{#                                        {{ form.password2 }}#}
                                         <label class="color-white" for="id_password2">Подтвердите пароль</label>
-                                        {{ form.password2 }}
                                         <input type="password" name="id_password2" id="id_password2"
                                                class="form-control" placeholder="Подтвердите пароль">
                                     </div>
