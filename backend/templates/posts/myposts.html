@@ -1,0 +1,17 @@
+{% load static %}
+<div class="posts">
+    {% for object in object_list %}
+    <div style="border-style:dashed">
+        <a href="{% url 'posts:update-post' object.pk %}">Изменить</a>
+        <a href="{% url 'posts:delete-post' object.pk %}">Удалить</a>
+        <a href="{% url 'posts:full-post' object.slug %}">Показать полностью</a>
+        <h3>
+            {{ object.header}}
+        </h3>
+        <p>
+            {{ object.body|safe}}
+        </p>
+    </div>
+    {% endfor %}
+
+</div>
