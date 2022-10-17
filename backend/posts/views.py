@@ -148,7 +148,6 @@ class PostFullView(DetailView):
             context["object"] = get_object_or_404(Post, slug=kwargs["slug"])
         except (TypeError, KeyError):
             pass
-
         return context
 
 
