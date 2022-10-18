@@ -15,7 +15,11 @@ from django.shortcuts import get_object_or_404
 
 
 def index(request):
-    return render(request, 'index.html')
+    content = {
+        'title': 'Блог статей команды BlackPearl>',
+        'description': 'Интересные статьи обо всем. Популярные рубрики и занимательный контент.'
+    }
+    return render(request, 'index.html', content)
 
 
 def contact(request):
@@ -162,15 +166,18 @@ class CategoryPostsView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         if kwargs.get('category'):
             try:
                 context["object_list"] = Post.objects.filter(
                     id_category__name=kwargs.get('category'))
                 context['title'] = kwargs.get('category')
-                context['description'] = kwargs.get('description')
+                context['description'] = Category.objects.filter(name=kwargs.get('category')).values()[0]['description']
             except (TypeError, KeyError):
                 context["object_list"] = []
         else:
             context["object_list"] = Post.objects.all()
+            context['title'] = 'Блог статей команды BlackPearl'
+            context['description'] = 'Интересные статьи обо всем. Популярные рубрики и занимательный контент.'
 
         return context
