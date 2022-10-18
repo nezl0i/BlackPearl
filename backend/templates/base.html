@@ -6,7 +6,7 @@
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>BlackPearl - {{ title }}</title>
+    <title>BlackPearl - {% if object %}{{ object.id_category.name}} {% else %}{{ title }} {% endif %}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <meta content="" name="description"/>
