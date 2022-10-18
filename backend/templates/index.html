@@ -154,16 +154,16 @@
 {% endcomment %}
     <!-- Latest Products -->
     <div class="content-lg container">
-        <div class="row margin-b-40">
-            <div class="col-sm-6">
-                <h2>Latest Products</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed tempor incididunt ut laboret dolore magna
-                    aliqua enim minim veniam exercitation</p>
-            </div>
-        </div>
-        <!--// end row --> 
+{#        <div class="row margin-b-40">#}
+{#            <div class="col-sm-6">#}
+{#                <h2>Latest Products</h2>#}
+{#                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed tempor incididunt ut laboret dolore magna#}
+{#                    aliqua enim minim veniam exercitation</p>#}
+{#            </div>#}
+{#        </div>#}
+        <!--// end row -->
 
-        <div class="row">
+        <div class="row margin-b-50">
             {% for object in object_list %}
             <!-- Latest Products -->
             <div class="col-sm-4 sm-margin-b-50">
@@ -172,10 +172,9 @@
                         <img class="img-responsive" src="{% static 'img/970x647/01.jpg' %}" alt="Latest Products Image">
                     </div>
                 </div>
-                <h4><a href="{% url 'posts:full-post' object.slug %}">{{ object.header }}</a>
-                <span class="text-uppercase margin-l-20">{{ object.id_category.name }}</span></h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed tempor incdidunt ut laboret dolor magna ut
-                    consequat siad esqudiat dolor</p>
+                <h3><a href="{% url 'posts:full-post' object.slug %}">{{ object.header }}</a>
+                <span class="text-uppercase margin-l-20">{{ object.id_category.name }}</span></h3>
+                {{ object.body|truncatewords:100|safe }}
                 <a class="link" href="{% url 'posts:full-post' object.slug %}">Read More</a>
             </div>
             <!-- End Latest Products -->
@@ -217,7 +216,7 @@
         </div>
     </div>
     <!-- End Clients -->
-{% comment %} 
+{% comment %}
     <!-- Testimonials -->
     <div class="content-lg container">
         <div class="row">
