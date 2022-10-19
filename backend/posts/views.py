@@ -1,4 +1,3 @@
-
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -181,9 +180,6 @@ class PostFullView(CustomSuccessMessageMixin, FormMixin, DetailView):
         self.object.user = self.request.user
         self.object.save()
         return super().form_valid(form)
-
-
-
 
 
 class CategoryPostsView(TemplateView):
