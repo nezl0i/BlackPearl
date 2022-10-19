@@ -1,16 +1,16 @@
 
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from users.forms import LoginForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.views.generic import ListView
-from .models import Post, Category
-from django.views.generic.edit import FormView, UpdateView, DeleteView
+from .models import Post, Category, Comment
+from django.views.generic.edit import FormView, UpdateView, DeleteView, CreateView, FormMixin
 from django.views.generic.detail import DetailView
 from django.views.generic import TemplateView
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from django.shortcuts import get_object_or_404
 
 
@@ -138,21 +138,52 @@ class MyPostsView(ListView):
         return context
 
 
-class PostFullView(DetailView):
+class CustomSuccessMessageMixin:
+    @property
+    def success_msg(self):
+        return False
+
+    def form_valid(self, form):
+        messages.success(self.request, self.success_msg)
+        return super().form_valid(form)
+
+
+class PostFullView(CustomSuccessMessageMixin, FormMixin, DetailView):
     """
     Class Based details view for Post
     :slug post needed 
     """
     model = Post
+    form_class = CommentForm
     template_name = 'posts/postview.html'
+    success_url = reverse_lazy('posts:index')
+    success_msg = 'Комментарий создан, ожидайте модерации'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        try:
-            context["object"] = get_object_or_404(Post, slug=kwargs["slug"])
-        except (TypeError, KeyError):
-            pass
+        comments = Comment.objects.filter(post=kwargs.get("object"), active=True)
+        context['comments'] = comments
         return context
+
+    def get_success_url(self):
+        return reverse_lazy('posts:full-post', kwargs={'slug': self.get_object().slug})
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.post = self.get_object()
+        self.object.user = self.request.user
+        self.object.save()
+        return super().form_valid(form)
+
+
+
 
 
 class CategoryPostsView(TemplateView):
