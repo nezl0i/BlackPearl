@@ -15,12 +15,12 @@
     <!-- Our Exceptional Solutions -->
     <div class="content-lg container">
         {% if messages %}
-        <div class="alert alert-success">
-        {% for message in messages %}
-            {{ message }}
-        {% endfor %}
-        </div>
-    {% endif %}
+            <div class="alert alert-success">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
         <div>
             <span>{{ object.date_creation }}</span>
             <h3>{{ object.header }}<span
@@ -74,16 +74,16 @@
             <!-- More comments -->
             <ul class="write-new">
                 <form action="" method="post">
-                            {{ form.as_p }}
-        {% csrf_token %}
-{#                    <textarea placeholder="Ваш комментарий" name="comment"></textarea>#}
-{#                    <div>#}
-{#                        <a class="avatar" href="#">#}
-{#                            <img src="{% static 'img/img_post/au2.jpg' %}" width="35" alt="Profile of Bradley Jones"#}
-{#                                 title="Борис Иванов"/>#}
-{#                        </a>#}
-                        <button type="submit">Отправить</button>
-{#                    </div>#}
+                    {{ form.as_p }}
+                    {% csrf_token %}
+                    {#                    <textarea placeholder="Ваш комментарий" name="comment"></textarea>#}
+                    {#                    <div>#}
+                    {#                        <a class="avatar" href="#">#}
+                    {#                            <img src="{% static 'img/img_post/au2.jpg' %}" width="35" alt="Profile of Bradley Jones"#}
+                    {#                                 title="Борис Иванов"/>#}
+                    {#                        </a>#}
+                    <button type="submit">Отправить</button>
+                    {#                    </div>#}
                 </form>
 
             </ul>
