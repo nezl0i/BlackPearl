@@ -14,6 +14,13 @@
     <!--========== PAGE LAYOUT ==========-->
     <!-- Our Exceptional Solutions -->
     <div class="content-lg container">
+        {% if messages %}
+        <div class="alert alert-success">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+        </div>
+    {% endif %}
         <div>
             <span>{{ object.date_creation }}</span>
             <h3>{{ object.header }}<span
@@ -32,47 +39,51 @@
         </div>
         <hr>
         <p>комментарии</p>
+
         <div class="comment_sector">
             <div>
-                <ul class="comment-section">
-                    <li class="comment user-comment">
-                        <div class="info">
-                            <a href="#">Анна Серебрякова</a>
-                            <span>4 часа назад</span>
-                        </div>
-                        <a class="avatar" href="#">
-                            <img src="{% static 'img/img_post/au1.jpg' %}" width="35" alt="Profile Avatar"
-                                 title="Анна Серебрякова"/>
-                        </a>
-                        <p> супер классный комментарий </p>
-
-                    </li>
-                </ul>
+                {% for comment in comments %}
+                    <ul class="comment-section">
+                        <li class="comment user-comment">
+                            <div class="info">
+                                <a href="#">{{ comment.user }}</a>
+                                <span>{{ comment.created }}</span>
+                            </div>
+                            <a class="avatar" href="#">
+                                <img src="{% static 'img/img_post/au1.jpg' %}" width="35" alt="Profile Avatar"
+                                     title="{{ comment.user }}"/>
+                            </a>
+                            <p> {{ comment.body }} </p>
+                        </li>
+                    </ul>
+                {% endfor %}
             </div>
-            <li class="comment author-comment">
-                <div class="info">
-                    <a href="#">Евгений Смирнов</a>
-                    <span>2 часа назад</span>
-                </div>
-                <a class="avatar" href="#">
-                    <img src="{% static 'img/img_post/aa.jpg' %}" width="35" alt="Profile Avatar"
-                         title="Евгений Смирнов"/>
-                </a>
-                <p>супер классный комментарий</p>
-            </li>
+            {#        Доработать для комментария автора#}
+            {#            <li class="comment author-comment">#}
+            {#                <div class="info">#}
+            {#                    <a href="#">Евгений Смирнов</a>#}
+            {#                    <span>2 часа назад</span>#}
+            {#                </div>#}
+            {#                <a class="avatar" href="#">#}
+            {#                    <img src="{% static 'img/img_post/aa.jpg' %}" width="35" alt="Profile Avatar"#}
+            {#                         title="Евгений Смирнов"/>#}
+            {#                </a>#}
+            {#                <p>супер классный комментарий</p>#}
+            {#            </li>#}
 
             <!-- More comments -->
             <ul class="write-new">
-
-                <form action="#" method="post">
-                    <textarea placeholder="Ваш комментарий" name="comment"></textarea>
-                    <div>
-                        <a class="avatar" href="#">
-                            <img src="{% static 'img/img_post/au2.jpg' %}" width="35" alt="Profile of Bradley Jones"
-                                 title="Борис Иванов"/>
-                        </a>
+                <form action="" method="post">
+                            {{ form.as_p }}
+        {% csrf_token %}
+{#                    <textarea placeholder="Ваш комментарий" name="comment"></textarea>#}
+{#                    <div>#}
+{#                        <a class="avatar" href="#">#}
+{#                            <img src="{% static 'img/img_post/au2.jpg' %}" width="35" alt="Profile of Bradley Jones"#}
+{#                                 title="Борис Иванов"/>#}
+{#                        </a>#}
                         <button type="submit">Отправить</button>
-                    </div>
+{#                    </div>#}
                 </form>
 
             </ul>
