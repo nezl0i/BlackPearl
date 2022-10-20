@@ -8,7 +8,7 @@ from users.forms import LoginForm, SignUpForm, ProfileForm
 
 
 class UserLoginView(LoginView):
-    template_name = 'login.html'
+    template_name = 'users/login.html'
     form_class = LoginForm
 
     def get_context_data(self, **kwargs):
@@ -23,7 +23,7 @@ class UserLogoutView(LogoutView):
 
 class UserProfileView(UpdateView):
     model = User
-    template_name = 'profile.html'
+    template_name = 'users/profile.html'
     form_class = ProfileForm
     success_url = reverse_lazy('users:profile')
     # fields = ('username', 'email', 'first_name', 'about_me')
@@ -33,7 +33,6 @@ class UserProfileView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        print('ok')
         # user_id = self.kwargs.get('pk')
         # user_item = get_object_or_404(User, pk=user_id)
         context['title'] = 'Профиль'
@@ -43,7 +42,7 @@ class UserProfileView(UpdateView):
 class UserRegistrationView(CreateView):
     model = User
     form_class = SignUpForm
-    template_name = 'sign_in.html'
+    template_name = 'users/sign_in.html'
     success_url = reverse_lazy('users:login')
 
     def get_context_data(self, **kwargs):
