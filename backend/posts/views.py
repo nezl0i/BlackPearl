@@ -1,24 +1,13 @@
-from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
-from users.forms import LoginForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib import messages
 from django.views.generic import ListView
 from .models import Post, Category, Comment
-from django.views.generic.edit import FormView, UpdateView, DeleteView, CreateView, FormMixin
+from django.views.generic.edit import FormView, UpdateView, DeleteView, FormMixin
 from django.views.generic.detail import DetailView
 from django.views.generic import TemplateView
 from .forms import PostForm, CommentForm
-from django.shortcuts import get_object_or_404
-
-
-def index(request):
-    content = {
-        'title': 'Блог статей команды BlackPearl>',
-        'description': 'Интересные статьи обо всем. Популярные рубрики и занимательный контент.'
-    }
-    return render(request, 'index.html', content)
 
 
 def contact(request):
@@ -30,15 +19,6 @@ def contact(request):
     return render(request, 'contact.html', content)
 
 
-def design(request):
-    content = {
-        'title': 'Дизайн',
-        'description': 'Lorem ipsum dolor amet consecrate adipiscing dolore magna aliqua '
-                       'enim minim estudiat veniam siad venomous dolore'
-    }
-    return render(request, 'design.html', content)
-
-
 def faq(request):
     content = {
         'title': 'Часто задаваемые вопросы',
@@ -46,33 +26,6 @@ def faq(request):
                        'enim minim estudiat veniam siad venomous dolore'
     }
     return render(request, 'faq.html', content)
-
-
-def marketing(request):
-    content = {
-        'title': 'Маркетинг',
-        'description': 'Lorem ipsum dolor amet consecrate adipiscing dolore magna aliqua '
-                       'enim minim estudiat veniam siad venomous dolore'
-    }
-    return render(request, 'marketing.html', content)
-
-
-def mobile(request):
-    content = {
-        'title': 'Мобильная разработка',
-        'description': 'Lorem ipsum dolor amet consecrate adipiscing dolore magna aliqua '
-                       'enim minim estudiat veniam siad venomous dolore'
-    }
-    return render(request, 'mobile_dev.html', content)
-
-
-def webpage(request):
-    content = {
-        'title': 'Веб разработка',
-        'description': 'Lorem ipsum dolor amet consecrate adipiscing dolore magna aliqua '
-                       'enim minim estudiat veniam siad venomous dolore'
-    }
-    return render(request, 'web_dev.html', content)
 
 
 def about(request):
@@ -137,17 +90,7 @@ class MyPostsView(ListView):
         return context
 
 
-class CustomSuccessMessageMixin:
-    @property
-    def success_msg(self):
-        return False
-
-    def form_valid(self, form):
-        messages.success(self.request, self.success_msg)
-        return super().form_valid(form)
-
-
-class PostFullView(CustomSuccessMessageMixin, FormMixin, DetailView):
+class PostFullView(FormMixin, DetailView):
     """
     Class Based details view for Post
     :slug post needed 
@@ -170,6 +113,7 @@ class PostFullView(CustomSuccessMessageMixin, FormMixin, DetailView):
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
+            messages.success(self.request, self.success_msg)
             return self.form_valid(form)
         else:
             return self.form_invalid(form)

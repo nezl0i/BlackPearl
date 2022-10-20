@@ -32,11 +32,12 @@ class UserProfileView(UpdateView):
         return reverse('users:profile', args=[self.kwargs.get('pk')])
 
     def get_context_data(self, **kwargs):
-        context_data = super().get_context_data(**kwargs)
-        user_id = self.kwargs.get('pk')
-        user_item = get_object_or_404(User, pk=user_id)
-        context_data['title'] = 'Профиль'
-        return context_data
+        context = super().get_context_data(**kwargs)
+        print('ok')
+        # user_id = self.kwargs.get('pk')
+        # user_item = get_object_or_404(User, pk=user_id)
+        context['title'] = 'Профиль'
+        return context
 
 
 class UserRegistrationView(CreateView):
