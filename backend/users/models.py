@@ -19,7 +19,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     age = models.IntegerField(blank=True, null=True)
     about_me = models.CharField(max_length=250)
-    # avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
+    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
 
     objects = UserManager()
 

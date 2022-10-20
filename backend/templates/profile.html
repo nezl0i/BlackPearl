@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block css %}<link rel="stylesheet" href="{% static 'css/sign_in.css' %}" type="text/css"/>{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/sign_in.css' %}" type="text/css"/>{% endblock %}
 {% block content %}
 
     <div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/1920x1080/01.jpg' %}">
@@ -10,7 +11,7 @@
                 <div class="col-md-4">
                     <div class="card card-user">
                         <div class="circle">
-                            <img src="{% static 'img/face.jpg' %}">
+                            <img src="{% if user.avatar %} {{ user.avatar.url }} {% else %} {% static 'vendor/users/default_avatar.jpg' %}  {% endif %}">
                         </div>
                         <h2 class="color-white">{{ user.username }}</h2>
                         {% if user.is_superuser %}
@@ -43,46 +44,55 @@
                         </nav>
                         <div class="tab-content" id="tabContent">
                             <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <form role="form" method="post" action="" class="text-left">
+                                <form role="form" method="post" action="" class="text-left"
+                                      enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <div class="form-outline margin-b-10">
                                         <label class="color-white" for="id_email">Email</label>
                                         {{ form.email }}
-{#                                        <input type="text" name="email" id="id_email"#}
-{#                                               class="form-control" placeholder="Email">#}
+                                        {#                                        <input type="text" name="email" id="id_email"#}
+                                        {#                                               class="form-control" placeholder="Email">#}
                                     </div>
                                     <div class="form-outline margin-b-10">
 
                                         <label class="color-white" for="id_username">Username</label>
                                         {{ form.username }}
-{#                                        <input type="text" name="username" id="id_username"#}
-{#                                               class="form-control" placeholder="Username">#}
+                                        {#                                        <input type="text" name="username" id="id_username"#}
+                                        {#                                               class="form-control" placeholder="Username">#}
                                     </div>
                                     <div class="form-outline margin-b-10">
                                         <label class="color-white" for="id_first_name">First name</label>
                                         {{ form.first_name }}
-{#                                        <input type="text" name="first_name" id="id_first_name"#}
-{#                                               class="form-control" placeholder="First name">#}
+                                        {#                                        <input type="text" name="first_name" id="id_first_name"#}
+                                        {#                                               class="form-control" placeholder="First name">#}
                                     </div>
                                     <div class="form-outline margin-b-10">
                                         <label class="color-white" for="id_last_name">Last name</label>
                                         {{ form.last_name }}
-{#                                        <input type="text" name="last_name" id="id_last_name"#}
-{#                                               class="form-control" placeholder="Last name">#}
+                                        {#                                        <input type="text" name="last_name" id="id_last_name"#}
+                                        {#                                               class="form-control" placeholder="Last name">#}
                                     </div>
                                     <div class="form-outline margin-b-10">
                                         <label class="color-white" for="id_age">Age</label>
                                         {{ form.age }}
-{#                                        <input type="number" name="age" id="id_age"#}
-{#                                               class="form-control py-4" placeholder="Age">#}
+                                        {#                                        <input type="number" name="age" id="id_age"#}
+                                        {#                                               class="form-control py-4" placeholder="Age">#}
                                     </div>
                                     <div class="form-outline margin-b-20">
                                         <label class="color-white" for="id_about_me">About me</label>
                                         {{ form.about_me }}
-{#                                        <input type="text" name="about_me" id="id_about_me"#}
-{#                                                class="form-control" placeholder="About me">#}
+                                        {#                                        <input type="text" name="about_me" id="id_about_me"#}
+                                        {#                                                class="form-control" placeholder="About me">#}
                                     </div>
-                                    <button type="submit" name="save" class="btn btn-primary btn-block margin-b-10">Изменить</button>
+{#                                    <div class="form-outline margin-b-10">#}
+{#                                        <label class="color-white" for="{{ form.avatar.id_for_label }}">Выберите#}
+{#                                            изображение</label>#}
+{#                                        {{ form.avatar }}#}
+{#                                    </div>#}
+
+                                    <button type="submit" name="save" class="btn btn-primary btn-block margin-b-10">
+                                        Изменить
+                                    </button>
                                 </form>
                             </div>
                             <div class="tab-pane" id="security" role="tabpanel" aria-labelledby="security-tab">
@@ -107,7 +117,9 @@
                                         <input type="password" name="id_password2" id="id_password2"
                                                class="form-control" placeholder="Подтвердите пароль">
                                     </div>
-                                    <button type="submit" name="change_pass" class="btn btn-primary btn-block margin-b-10">Сменить пароль</button>
+                                    <button type="submit" name="change_pass"
+                                            class="btn btn-primary btn-block margin-b-10">Сменить пароль
+                                    </button>
                                 </form>
                             </div>
                             <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">

@@ -46,19 +46,20 @@
                     <ul class="comment-section">
                         <li class="comment user-comment">
                             <div class="info">
-                                <a href="#">{{ comment.user }}</a>
+                                <a>{{ comment.user }}</a>
                                 <span>{{ comment.created }}</span>
                             </div>
-                            <a class="avatar" href="#">
-                                <img src="{% static 'img/img_post/au1.jpg' %}" width="35" alt="Profile Avatar"
+                            <div class="avatar">
+                                <img src="{% if comment.user.avatar %} {{ comment.user.avatar.url }} {% else %} {% static 'vendor/users/default_avatar.jpg' %}{% endif %}"
+                                     width="35" alt="Profile Avatar"
                                      title="{{ comment.user }}"/>
-                            </a>
+                            </div>
                             <p> {{ comment.body }} </p>
                         </li>
                     </ul>
                 {% endfor %}
             </div>
-            {#        Доработать для комментария автора#}
+            {#        Доработать (если нужно) для комментария автора#}
             {#            <li class="comment author-comment">#}
             {#                <div class="info">#}
             {#                    <a href="#">Евгений Смирнов</a>#}
@@ -72,21 +73,25 @@
             {#            </li>#}
 
             <!-- More comments -->
-            <ul class="write-new">
-                <form action="" method="post">
-                    {{ form.as_p }}
-                    {% csrf_token %}
-                    {#                    <textarea placeholder="Ваш комментарий" name="comment"></textarea>#}
-                    {#                    <div>#}
-                    {#                        <a class="avatar" href="#">#}
-                    {#                            <img src="{% static 'img/img_post/au2.jpg' %}" width="35" alt="Profile of Bradley Jones"#}
-                    {#                                 title="Борис Иванов"/>#}
-                    {#                        </a>#}
-                    <button type="submit">Отправить</button>
-                    {#                    </div>#}
-                </form>
-
-            </ul>
+            {% if user.is_authenticated %}
+                <ul class="write-new">
+                    <form action="" method="post">
+                        {{ form.body }}
+                        {% csrf_token %}
+                        {#                                        <textarea placeholder="Ваш комментарий" name="comment"></textarea>#}
+                        <div>
+                            <a class="avatar" href="{% url 'users:profile' user.pk %}">
+                                <img src="{% if user.avatar %} {{ user.avatar.url }} {% else %} {% static 'vendor/users/default_avatar.jpg' %}{% endif %}"
+                                     width="35" alt=""
+                                     title="{{ user.username }}"/>
+                            </a>
+                            <button type="submit">Отправить</button>
+                        </div>
+                    </form>
+                </ul>
+            {% else %}
+                <span>Только зарегистрированные пользователи могут оставлять комментарии</span>
+            {% endif %}
         </div>
     </div>
     <!-- End Our Exceptional Solutions -->
