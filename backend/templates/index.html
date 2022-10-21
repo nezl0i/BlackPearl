@@ -11,7 +11,7 @@
     <div class="content-lg container">
         <div class="row margin-b-50">
 
-            {% for object in object_list %}
+            {% for object in page_obj %}
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-50">
                         <div class="wow zoomIn" data-wow-duration=".3" data-wow-delay=".1s">
@@ -26,10 +26,12 @@
                 </div>
             {% endfor %}
         </div>
+        {% include 'includes/paginator.html' %}
     </div>
 
     <!-- Clients -->
 {#    {% include 'includes/clients.html' %}#}
+
     <!-- End Clients -->
 {% endblock %}
 
