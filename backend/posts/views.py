@@ -158,6 +158,7 @@ class CategoryPostsView(TemplateView):
             page_obj = paginator.page(page_num)
         except PageNotAnInteger:
             page_obj = paginator.page(1)
+
         except EmptyPage:
             page_obj = paginator.page(paginator.num_pages)
 
