@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import render
@@ -138,17 +139,28 @@ class CategoryPostsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        object_list = Post.objects.all()
+        context['title'] = 'Блог статей команды BlackPearl'
+        context['description'] = 'Интересные статьи обо всем. Популярные рубрики и занимательный контент.'
+
         if kwargs.get('category'):
             try:
-                context["object_list"] = Post.objects.filter(
-                    id_category__name=kwargs.get('category'))
+                object_list = Post.objects.filter(id_category__name=kwargs.get('category'))
                 context['title'] = kwargs.get('category')
                 context['description'] = Category.objects.filter(name=kwargs.get('category')).values()[0]['description']
             except (TypeError, KeyError):
-                context["object_list"] = []
-        else:
-            context["object_list"] = Post.objects.all()
-            context['title'] = 'Блог статей команды BlackPearl'
-            context['description'] = 'Интересные статьи обо всем. Популярные рубрики и занимательный контент.'
+                object_list = []
+
+        page_num = self.request.GET.get('page', 1)
+        paginator = Paginator(object_list, 3)
+
+        try:
+            page_obj = paginator.page(page_num)
+        except PageNotAnInteger:
+            page_obj = paginator.page(1)
+        except EmptyPage:
+            page_obj = paginator.page(paginator.num_pages)
+
+        context['page_obj'] = page_obj
 
         return context
