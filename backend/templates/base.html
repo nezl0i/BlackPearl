@@ -63,10 +63,11 @@
                 <div>
                     <ul style="margin-top: 30px" class="navbar-nav-right">
 
-                        <button class="btn"><i class="fa fa-heart" aria-hidden="true"></i></button>
-                        <button class="btn"><i class="fa fa-plus" aria-hidden="true"></i></button>
-
+                        
                         {% if user.is_authenticated %}
+                        <button class="btn"><i class="fa fa-heart" aria-hidden="true"  onclick=location.href="{% url 'posts:myposts' %}"></i></button>
+                        <button class="btn"><i class="fa fa-plus" aria-hidden="true"  onclick=location.href="{% url 'posts:create-post' %}"></i></button>
+
                             <i> <a style="color: #fff;" href="{% url 'users:profile' user.pk %}">{{ user.username|default:user.email }} </a></i>
                             <button onclick=location.href="{% url 'users:logout' %}" class="btn">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i>
