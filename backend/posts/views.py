@@ -87,7 +87,7 @@ class MyPostsView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["object_list"] = Post.objects.filter(author=self.request.user)
+        context["object_list"] = Post.objects.filter(author=self.request.user).select_related()
         return context
 
 
@@ -139,13 +139,14 @@ class CategoryPostsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        object_list = Post.objects.all()
+        object_list = Post.objects.get_queryset().order_by('id').select_related()
         context['title'] = 'Блог статей команды BlackPearl'
         context['description'] = 'Интересные статьи обо всем. Популярные рубрики и занимательный контент.'
 
         if kwargs.get('category'):
             try:
-                object_list = Post.objects.filter(id_category__name=kwargs.get('category'))
+                object_list = Post.objects.filter(id_category__name=kwargs.get('category'))\
+                    .order_by('id').select_related()
                 context['title'] = kwargs.get('category')
                 context['description'] = Category.objects.filter(name=kwargs.get('category')).values()[0]['description']
             except (TypeError, KeyError):
