@@ -26,8 +26,7 @@ class Post(models.Model):
     slug = models.SlugField(
         max_length=250,
         unique=True,
-        blank=True,
-        unique_for_date='publish'
+        blank=True
     )
     # теги поста
     tags = TaggableManager()

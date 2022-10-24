@@ -1,16 +1,14 @@
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
-from django.urls import reverse_lazy, reverse
-from django.views.generic import TemplateView, DetailView, ListView
-from django.views.generic.edit import FormMixin, DeleteView, UpdateView, FormView
-from posts.forms import CommentForm, PostForm
-from posts.models import Category, Post, Comment
+from django.urls import reverse, reverse_lazy
 from django.shortcuts import render
 from django.contrib import messages
-
-
-def index(request):
-    return render(request, 'index.html')
+from django.views.generic import ListView
+from .models import Post, Category, Comment
+from django.views.generic.edit import FormView, UpdateView, DeleteView, FormMixin
+from django.views.generic.detail import DetailView
+from django.views.generic import TemplateView
+from .forms import PostForm, CommentForm
 
 
 def contact(request):
