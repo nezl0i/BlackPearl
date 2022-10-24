@@ -19,7 +19,7 @@
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-50">
                         <div class="wow zoomIn" data-wow-duration=".3" data-wow-delay=".1s">
-                            <img class="img-responsive" src="{% static 'img/970x647/02.jpg' %}" alt="">
+                            <img class="img-responsive" src="{% if object.image %}{{ object.image.url }} {% else %}{% static 'img/970x647/02.jpg' %}{% endif %}" alt="">
                         </div>
                     </div>
                     <h3><a href="{% url 'posts:full-post' object.slug %}">{{ object.header }}</a>
