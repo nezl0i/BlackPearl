@@ -44,6 +44,9 @@ class Post(models.Model):
     )
     id_category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ['-id']
+
     def _create_unique_slug(self):
         magic = str(int(self.date_creation.timestamp()))
         return slugify(re.sub(r' +', '-', translit(self.header, language_code='ru', reversed=True))) + magic
