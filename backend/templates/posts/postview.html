@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'css/post.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+
+    <!--========== PARALLAX ==========-->
+    {% include 'includes/parallax.html' %}
+    <!--========== PARALLAX ==========-->
+
+    <!--========== PAGE LAYOUT ==========-->
+    <!-- Our Exceptional Solutions -->
+    <div class="content-lg container">
+        {% if messages %}
+            <div class="alert alert-success">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div>
+            <span>{{ object.date_creation }} Автор: {{ object.author }}</span>
+            <h3>{{ object.header }}<span
+                    class="text-uppercase margin-l-20">{{ object.id_category.name }}</span></h3>
+            <div class="main">
+                {{ object.body|safe }}
+            </div>
+            <hr>
+            <div>
+                <button class="btn"><i class="fa fa-heart"></i> нравится
+                </button>
+                <span><a>Теги:</a> <a class="teg" href="#">дизайн</a> <a class="teg" href="#">дизайнеры</a> <a
+                        class="teg"
+                        href="#">разработка приложений</a></span>
+            </div>
+        </div>
+        <hr>
+        <p>комментарии</p>
+
+        <div class="comment_sector">
+            <div>
+                {% for comment in comments %}
+                    <ul class="comment-section">
+                        <li class="comment user-comment">
+                            <div class="info">
+                                <a>{{ comment.user }}</a>
+                                <span>{{ comment.created }}</span>
+                            </div>
+                            <div class="avatar">
+                                <img src="{% if comment.user.avatar %} {{ comment.user.avatar.url }} {% else %} {% static 'vendor/users/default_avatar.jpg' %}{% endif %}"
+                                     width="35" alt="Profile Avatar"
+                                     title="{{ comment.user }}"/>
+                            </div>
+                            <p> {{ comment.body }} </p>
+                        </li>
+                    </ul>
+                {% endfor %}
+            </div>
+            {#        Доработать (если нужно) для комментария автора#}
+            {#            <li class="comment author-comment">#}
+            {#                <div class="info">#}
+            {#                    <a href="#">Евгений Смирнов</a>#}
+            {#                    <span>2 часа назад</span>#}
+            {#                </div>#}
+            {#                <a class="avatar" href="#">#}
+            {#                    <img src="{% static 'img/img_post/aa.jpg' %}" width="35" alt="Profile Avatar"#}
+            {#                         title="Евгений Смирнов"/>#}
+            {#                </a>#}
+            {#                <p>супер классный комментарий</p>#}
+            {#            </li>#}
+
+            <!-- More comments -->
+            {% if user.is_authenticated %}
+                <ul class="write-new">
+                    <form action="" method="post">
+                        {{ form.body }}
+                        {% csrf_token %}
+                        {#                                        <textarea placeholder="Ваш комментарий" name="comment"></textarea>#}
+                        <div>
+                            <a class="avatar" href="{% url 'users:profile' user.pk %}">
+                                <img src="{% if user.avatar %} {{ user.avatar.url }} {% else %} {% static 'vendor/users/default_avatar.jpg' %}{% endif %}"
+                                     width="35" alt=""
+                                     title="{{ user.username }}"/>
+                            </a>
+                            <button type="submit">Отправить</button>
+                        </div>
+                    </form>
+                </ul>
+            {% else %}
+                <span>Только зарегистрированные пользователи могут оставлять комментарии</span>
+            {% endif %}
+        </div>
+    </div>
+    <!-- End Our Exceptional Solutions -->
+
+    <!--========== END PAGE LAYOUT ==========-->
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'vendor/jquery.parallax.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'vendor/swiper/js/swiper.jquery.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/components/swiper.min.js' %}" type="text/javascript"></script>
+{% endblock %}

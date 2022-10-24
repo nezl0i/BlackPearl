@@ -1,0 +1,17 @@
+<nav aria-label="pagination">
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}">
+                {#                <span aria-hidden="true">«</span>#}
+                <span class="visuallyhidden">previous set of pages</span></a></li>
+        {% endif %}
+        {% for pg in  page_obj.paginator.page_range %}
+            <li><a href="?page={{ pg }}" aria-current="page">{{ pg }}</a></li>
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}">
+                <span class="visuallyhidden">next set of pages</span></a></li>
+            {#                <span aria-hidden="true">»</span></a></li>#}
+        {% endif %}
+    </ul>
+</nav>
