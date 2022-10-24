@@ -10,6 +10,70 @@ div.main {
     text-align: justify;
 }
 
+.onepost-h3 {
+    color: #3da4d3;
+}
+
+.onepost-img {
+    width: 100%;
+}
+
+.onepost-h4 {
+    margin-top: 10px;
+    color: #a16a6a;
+}
+
+form p {
+    text-align: left;
+    margin: 10px;
+}
+
+form p input {
+    width: 100%;
+}
+
+.post-btn-delete {
+    background-color: #d9534f;
+    border: 1px solid #d43f3a;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border-radius: 4px;
+}
+
+.onepost-body-myposts {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.post-action-links {
+    text-align: right;
+    margin-top: 30px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.21);
+}
+
+.post-action-links a {
+    margin: 6px;
+}
+
 /*clear of floating elements*/
 .clearfix:after {
     content: "";

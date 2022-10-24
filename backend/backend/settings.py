@@ -174,7 +174,13 @@ MEDIA_URL='/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 SUMMERNOTE_THEME_FILES = {
-    'bs3': {
+    'iframe': False,
+    'summernote':{
+        'width': '100%',
+        'height': '100%',
+    },
+
+    'bs5': {
         'base_css': (
             # '//stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
             '/static/summernote/bootstrap.min.css',

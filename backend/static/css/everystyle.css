@@ -1,0 +1,14 @@
+@charset "utf-8";
+
+/* ---------- FONTAWESOME ---------- */
+
+[class*="fontawesome-"]:before {
+    font-family: 'FontAwesome', sans-serif;
+}
+
+.card-user {
+    border: solid 2px rgba(255, 255, 255, 0.13);
+    border-radius: 5px;
+    padding: 20px 10px;
+    background-color: #303337;
+}

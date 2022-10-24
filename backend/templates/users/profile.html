@@ -2,7 +2,9 @@
 {% load static %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/sign_in.css' %}" type="text/css"/>{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/everystyle.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'css/sign_in.css' %}" type="text/css"/>
+{% endblock %}
 {% block content %}
 
     <div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/1920x1080/01.jpg' %}">
@@ -23,6 +25,7 @@
                         {% endif %}
                         <div class="text-left">
                             <ul class="list-unstyled">
+                                <li><a class="list-link" href="{% url 'posts:myposts' %}">Посты</a></li>
                                 <li><a class="list-link" href="#">Настройки аккаунта</a></li>
                                 <li><a class="list-link" href="#">Помощь</a></li>
                             </ul>
