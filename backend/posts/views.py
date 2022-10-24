@@ -147,20 +147,12 @@ class CategoryPostsView(TemplateView):
             try:
                 object_list = Post.objects.filter(id_category__name=kwargs.get('category')).select_related()
                 context['title'] = kwargs.get('category')
-                context['description'] = Category.objects.filter(id=kwargs.get('category')).values()[0]['description']
+                context['description'] = Category.objects.filter(name=kwargs.get('category')).values()[0]['description']
             except (TypeError, KeyError):
                 object_list = []
 
-        page_num = self.request.GET.get('page', 1)
         paginator = Paginator(object_list, 3)
-
-        try:
-            page_obj = paginator.page(page_num)
-        except PageNotAnInteger:
-            page_obj = paginator.page(1)
-        except EmptyPage:
-            page_obj = paginator.page(paginator.num_pages)
-
-        context['page_obj'] = page_obj
+        page_num = self.request.GET.get('page')
+        context['page_obj'] = paginator.get_page(page_num)
 
         return context
