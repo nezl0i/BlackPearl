@@ -16,12 +16,13 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ('header', 'body', 'tags', 'id_category')
+        fields = ('header', 'body', 'tags', 'id_category', 'image')
         labels = {
             'header': _('Заголовок'),
             'body': _('Тело статьи'),
             'tags': _('Теги'),
             'id_category': _('Категория поста'),
+            'image': _('Изображение')
         }
         error_messages = {
             'tags': {
