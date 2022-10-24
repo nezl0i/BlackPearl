@@ -1,6 +1,31 @@
-<div>
-    <form action="#" method="POST">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Создать">
-    </form>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/everystyle.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'css/post.css' %}" type="text/css"/>
+{% endblock %}
+{% block content %}
+
+
+<div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/1920x1080/01.jpg' %}">
+    <div class="parallax-content container text-center">
+        <div class="card card-user">
+            <div>
+                <form action="#" method="POST">{% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Сохранить">
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'vendor/jquery.parallax.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'vendor/swiper/js/swiper.jquery.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/components/swiper.min.js' %}" type="text/javascript"></script>
+{% endblock %}
