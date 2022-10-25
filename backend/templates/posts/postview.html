@@ -30,11 +30,13 @@
             </div>
             <hr>
             <div>
-                <button class="btn"><i class="fa fa-heart"></i> нравится
-                </button>
-                <span><a>Теги:</a> <a class="teg" href="#">дизайн</a> <a class="teg" href="#">дизайнеры</a> <a
-                        class="teg"
-                        href="#">разработка приложений</a></span>
+                <button class="btn"><i class="fa fa-heart"></i> нравится</button>
+                <span>
+                    <a>Теги:</a>
+                    {% for tag in tags %}
+                        <a class="teg" href="#">{{ tag }}</a>
+                    {% endfor %}
+                </span>
             </div>
         </div>
         <hr>
