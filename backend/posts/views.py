@@ -1,30 +1,27 @@
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import render
 from django.contrib import messages
 from django.views.generic import ListView
 from .models import Post, Category, Comment
-from django.views.generic.edit import FormView, UpdateView, DeleteView, FormMixin, CreateView
+from django.views.generic.edit import UpdateView, DeleteView, FormMixin, CreateView
 from django.views.generic.detail import DetailView
-from django.views.generic import TemplateView
 from .forms import PostForm, CommentForm
 
 
 def contact(request):
     content = {
         'title': 'Контакты',
-        'description': 'Lorem ipsum dolor amet consecrate adipiscing dolore magna aliqua '
-                       'enim minim estudiat veniam siad venomous dolore'
+        'description': 'Связь с нами'
     }
     return render(request, 'contact.html', content)
 
 
 def faq(request):
     content = {
-        'title': 'Часто задаваемые вопросы',
-        'description': 'Lorem ipsum dolor amet consecrate adipiscing dolore magna aliqua '
-                       'enim minim estudiat veniam siad venomous dolore'
+        'title': 'FAQ',
+        'description': 'Часто задаваемые вопросы'
     }
     return render(request, 'faq.html', content)
 
@@ -32,8 +29,7 @@ def faq(request):
 def about(request):
     content = {
         'title': 'О нас',
-        'description': 'Lorem ipsum dolor amet consecrate adipiscing dolore magna aliqua '
-                       'enim minim estudiat veniam siad venomous dolore'
+        'description': 'О нашей команде BlackPearlCode'
     }
     return render(request, 'about.html', content)
 
@@ -85,10 +81,8 @@ class MyPostsView(ListView):
     template_name = 'profile/myposts.html'
     model = Post
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["object_list"] = Post.objects.filter(author=self.request.user).select_related()
-        return context
+    def get_queryset(self):
+        return Post.objects.filter(author=self.request.user).select_related()
 
 
 class PostFullView(FormMixin, DetailView):
@@ -101,11 +95,15 @@ class PostFullView(FormMixin, DetailView):
     template_name = 'posts/postview.html'
     success_url = reverse_lazy('posts:index')
     success_msg = 'Комментарий создан, ожидайте модерации'
+    extra_context = {
+        'title': 'Статья'
+    }
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         comments = Comment.objects.filter(post=kwargs.get("object"), active=True)
         context['comments'] = comments
+        context['tags'] = self.object.tags.names()
         return context
 
     def get_success_url(self):
@@ -144,7 +142,8 @@ class CategoryPostsView(ListView):
         if category_title := self.kwargs.get('category'):
             self.extra_context['title'] = category_title
             self.extra_context['description'] = Category.objects.filter(name=category_title).values()[0]['description']
-            return Post.objects.filter(id_category__name=self.kwargs.get('category'), status='published').select_related()
+            return Post.objects.filter(id_category__name=self.kwargs.get('category'),
+                                       status='published').select_related()
         return Post.objects.filter(status='published').select_related()
 
     def get_context_data(self, **kwargs):

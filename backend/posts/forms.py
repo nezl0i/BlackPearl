@@ -12,7 +12,7 @@ class PostForm(forms.ModelForm):
     slug changed when Post created
     """
     body = forms.CharField(widget=SummernoteWidget(
-        attrs={'summernote': {'width': '100%'}}), label='СОдержание статьи')
+        attrs={'summernote': {'width': '100%'}}), label='Содержание статьи')
 
     class Meta:
         model = Post
