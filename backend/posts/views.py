@@ -127,31 +127,30 @@ class PostFullView(FormMixin, DetailView):
         return super().form_valid(form)
 
 
-class CategoryPostsView(TemplateView):
+class CategoryPostsView(ListView):
     """
     Class Based view for show all Posts or filtered by category
     :category name needed for filtering
 
     """
-
+    model = Post
     template_name = 'index.html'
+    extra_context = {
+        'title': 'Блог статей команды BlackPearl',
+        'description': 'Интересные статьи обо всем. Популярные рубрики и занимательный контент.'
+    }
+
+    def get_queryset(self):
+        if category_title := self.kwargs.get('category'):
+            self.extra_context['title'] = category_title
+            self.extra_context['description'] = Category.objects.filter(name=category_title).values()[0]['description']
+            return Post.objects.filter(id_category__name=self.kwargs.get('category'), status='published').select_related()
+        return Post.objects.filter(status='published').select_related()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        object_list = Post.objects.get_queryset().select_related()
-        context['title'] = 'Блог статей команды BlackPearl'
-        context['description'] = 'Интересные статьи обо всем. Популярные рубрики и занимательный контент.'
-
-        if kwargs.get('category'):
-            try:
-                object_list = Post.objects.filter(id_category__name=kwargs.get('category')).select_related()
-                context['title'] = kwargs.get('category')
-                context['description'] = Category.objects.filter(name=kwargs.get('category')).values()[0]['description']
-            except (TypeError, KeyError):
-                object_list = []
-
-        paginator = Paginator(object_list, 6)
+        paginator = Paginator(self.object_list, 6)
         page_num = self.request.GET.get('page')
         context['page_obj'] = paginator.get_page(page_num)
 
