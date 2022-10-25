@@ -151,7 +151,7 @@ class CategoryPostsView(TemplateView):
             except (TypeError, KeyError):
                 object_list = []
 
-        paginator = Paginator(object_list, 3)
+        paginator = Paginator(object_list, 6)
         page_num = self.request.GET.get('page')
         context['page_obj'] = paginator.get_page(page_num)
 

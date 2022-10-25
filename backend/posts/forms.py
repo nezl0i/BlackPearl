@@ -19,7 +19,7 @@ class PostForm(forms.ModelForm):
         fields = ('header', 'body', 'tags', 'id_category', 'image')
         labels = {
             'header': _('Заголовок'),
-            'body': _('Тело статьи'),
+            'body': _('Содержание статьи'),
             'tags': _('Теги'),
             'id_category': _('Категория поста'),
             'image': _('Изображение')
