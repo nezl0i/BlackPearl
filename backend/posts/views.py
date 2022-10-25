@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.views.generic import ListView
 from .models import Post, Category, Comment
-from django.views.generic.edit import FormView, UpdateView, DeleteView, FormMixin
+from django.views.generic.edit import FormView, UpdateView, DeleteView, FormMixin, CreateView
 from django.views.generic.detail import DetailView
 from django.views.generic import TemplateView
 from .forms import PostForm, CommentForm
@@ -38,7 +38,7 @@ def about(request):
     return render(request, 'about.html', content)
 
 
-class CreatePostView(FormView):
+class CreatePostView(CreateView):
     """
     View for Post creation
     Field author hidden, we get it from :request
@@ -47,7 +47,7 @@ class CreatePostView(FormView):
     template_name = 'profile/create-post.html'
 
     def post(self, request, *args, **kwargs):
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
