@@ -14,19 +14,14 @@
             <div class="posts">
                 {% for object in object_list %}
                 <div class="onepost">
-                    <h3 class="onepost-h3">
-                        {{ object.header}}
-                    </h3>
-                    {% comment %} <img class="onepost-img" src="{% static 'img/970x647/01.jpg' %}">
-                    <div class="onepost-body-myposts">
-                        <p>
-                            {{ object.body|safe}}
-                        </p>
-                    </div> {% endcomment %}
+{#                    <h3 class="onepost-h3">#}
+{#                        {{ object.header}}#}
+{#                    </h3>#}
                     <div class="post-action-links">
+                       <li class="post-list-item text-center"><a href="{% url 'posts:full-post' object.slug %}">{{ object.header}}</a></li>
                         <a href="{% url 'posts:update-post' object.pk %}">Изменить</a>
                         <a href="{% url 'posts:delete-post' object.pk %}">Удалить</a>
-                        <a href="{% url 'posts:full-post' object.slug %}">Показать полностью</a>
+{#                        <a href="{% url 'posts:full-post' object.slug %}">Показать полностью</a>#}
                     </div>
                 </div>
                 {% endfor %}
