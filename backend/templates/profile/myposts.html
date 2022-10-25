@@ -14,9 +14,9 @@
             <div class="posts">
                 {% for object in object_list %}
                 <div class="onepost">
-{#                    <h3 class="onepost-h3">#}
-{#                        {{ object.header}}#}
-{#                    </h3>#}
+                    {#                    <h3 class="onepost-h3">#}
+                    {#                        {{ object.header}}#}
+                    {#                    </h3>#}
                     <div class="post-action-links">
                        <li class="post-list-item text-center"><a href="{% url 'posts:full-post' object.slug %}">{{ object.header}}</a></li>
                         <a href="{% url 'posts:update-post' object.pk %}">Изменить</a>
