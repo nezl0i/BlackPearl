@@ -57,6 +57,10 @@
                                      title="{{ comment.user }}"/>
                             </div>
                             <p> {{ comment.body }} </p>
+                            {% if not comment.active and user.is_staff %}
+                                <a href="{% url 'posts:pub-comment' comment.pk %}">Опубликовать </a>
+                                <a href="{% url 'posts:delete-comment' comment.pk %}">Удалить</a>
+                            {% endif %}
                         </li>
                     </ul>
                 {% endfor %}
