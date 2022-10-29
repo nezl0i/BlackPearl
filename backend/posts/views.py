@@ -1,13 +1,14 @@
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.views.generic import ListView
 from .models import Post, Category, Comment
 from django.views.generic.edit import UpdateView, DeleteView, FormMixin, CreateView
 from django.views.generic.detail import DetailView
 from .forms import PostForm, CommentForm
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 def contact(request):
@@ -101,7 +102,12 @@ class PostFullView(FormMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        comments = Comment.objects.filter(post=kwargs.get("object"), active=True)
+        if self.request.user.is_staff:
+            comments = Comment.objects.filter(
+                post=kwargs.get("object"))
+        else:
+            comments = Comment.objects.filter(
+                post=kwargs.get("object"), active=True)
         context['comments'] = comments
         context['tags'] = self.object.tags.names()
         return context
@@ -141,7 +147,8 @@ class CategoryPostsView(ListView):
     def get_queryset(self):
         if category_title := self.kwargs.get('category'):
             self.extra_context['title'] = category_title
-            self.extra_context['description'] = Category.objects.filter(name=category_title).values()[0]['description']
+            self.extra_context['description'] = Category.objects.filter(
+                name=category_title).values()[0]['description']
             return Post.objects.filter(id_category__name=self.kwargs.get('category'),
                                        status='published').select_related()
         return Post.objects.filter(status='published').select_related()
@@ -154,3 +161,41 @@ class CategoryPostsView(ListView):
         context['page_obj'] = paginator.get_page(page_num)
 
         return context
+
+
+class ModeratePostsView(ListView):
+    """
+    Class Based view for show user posts
+    :pk user needed
+    """
+    template_name = 'profile/mod-posts.html'
+    model = Post
+
+    def get_queryset(self):
+        return Post.objects.filter(status='draft').select_related()
+
+
+@staff_member_required
+def publicate_post(request, pk):
+    if request.user.is_staff:
+        post = get_object_or_404(Post, pk=pk)
+        post.status = 'published'
+        post.save()
+    return HttpResponseRedirect(reverse('posts:mod-posts'))
+
+
+@staff_member_required
+def publicate_comment(request, pk):
+    if request.user.is_staff:
+        comment = get_object_or_404(Comment, pk=pk)
+        comment.active = True
+        comment.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+@staff_member_required
+def delete_comment(request, pk):
+    if request.user.is_staff:
+        comment = get_object_or_404(Comment, pk=pk)
+        comment.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/everystyle.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'css/post.css' %}" type="text/css"/>
+{% endblock %}
+{% block content %}
+
+
+<div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/1920x1080/01.jpg' %}">
+    <div class="parallax-content container text-center">
+        <div class="card card-user">
+            <div class="posts">
+                {% for object in object_list %}
+                <div class="onepost">
+                    {#                    <h3 class="onepost-h3">#}
+                    {#                        {{ object.header}}#}
+                    {#                    </h3>#}
+                    <div class="post-action-links">
+                    <li class="post-list-item text-center"><a href="{% url 'posts:full-post' object.slug %}">{{ object.header}}</a></li>
+                        <a href="{% url 'posts:pub-post' object.pk %}">Опубликовать</a>
+                        <a href="{% url 'posts:delete-post' object.pk %}">Удалить</a>
+{#                        <a href="{% url 'posts:full-post' object.slug %}">Показать полностью</a>#}
+                    </div>
+                </div>
+                {% empty %}
+                    <div class="onepost">
+                        <div class="post-action-links">
+                        <li class="post-list-item text-center">Модерировать нечего...</li>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'vendor/jquery.parallax.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'vendor/swiper/js/swiper.jquery.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/components/swiper.min.js' %}" type="text/javascript"></script>
+{% endblock %}
