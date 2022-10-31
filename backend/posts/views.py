@@ -139,10 +139,7 @@ class CategoryPostsView(ListView):
     """
     model = Post
     template_name = 'index.html'
-    extra_context = {
-        'title': 'Блог статей команды BlackPearl',
-        'description': 'Интересные статьи обо всем. Популярные рубрики и занимательный контент.'
-    }
+    extra_context = {}
 
     def get_queryset(self):
         if category_title := self.kwargs.get('category'):
@@ -151,6 +148,11 @@ class CategoryPostsView(ListView):
                 name=category_title).values()[0]['description']
             return Post.objects.filter(id_category__name=self.kwargs.get('category'),
                                        status='published').select_related()
+        self.extra_context = {
+            'title': 'Блог статей команды BlackPearl',
+            'description': 'Интересные статьи обо всем. Популярные рубрики и занимательный контент.'
+        }
+
         return Post.objects.filter(status='published').select_related()
 
     def get_context_data(self, **kwargs):
