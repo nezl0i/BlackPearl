@@ -27,7 +27,7 @@
                     <h3><a href="{% url 'posts:full-post' object.slug %}">{{ object.header }}</a>
                         <span class="text-uppercase margin-l-20">{{ object.id_category.name }}</span>
                     </h3>
-                    {{ object.body|truncatewords:60 }}
+                    {{ object.body|striptags|truncatewords:60 }}
 {#                    <a class="link" href="{% url 'posts:full-post' object.slug %}">Читать далее</a>#}
                 </div>
             {% endfor %}
