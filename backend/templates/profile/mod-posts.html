@@ -18,9 +18,9 @@
                     {#                        {{ object.header}}#}
                     {#                    </h3>#}
                     <div class="post-action-links">
-                    <li class="post-list-item text-center"><a href="{% url 'posts:full-post' object.slug %}">{{ object.header}}</a></li>
-                        <a href="{% url 'posts:pub-post' object.pk %}">Опубликовать</a>
-                        <a href="{% url 'posts:delete-post' object.pk %}">Удалить</a>
+                    <li class="post-list-item text-center"><a href="{% url 'posts:full-post' object.slug %}">{{ object.header}}</a>
+                        <a class="btn" href="{% url 'posts:pub-post' object.pk %}">Опубликовать</a>
+                        <a class="btn" href="{% url 'posts:delete-post' object.pk %}">Удалить</a>
 {#                        <a href="{% url 'posts:full-post' object.slug %}">Показать полностью</a>#}
                     </div>
                 </div>
