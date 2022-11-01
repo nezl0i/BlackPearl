@@ -1,5 +1,11 @@
 @charset "utf-8";
 
+#id_avatar {
+    background-color: rgba(15, 15, 15, 0.13);
+    color: rgba(255, 255, 255, 0.71);
+    width: 100%;
+}
+
 .form-outline {
     border: 1px solid transparent;
     border-radius: 8px;
