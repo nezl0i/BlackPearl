@@ -29,13 +29,27 @@
                 {{ object.body|safe }}
             </div>
             <hr>
-            <div>
-                <button class="btn"><i class="fa fa-heart"></i> нравится
-                </button>
-                <span><a>Теги:</a> <a class="teg" href="#">дизайн</a> <a class="teg" href="#">дизайнеры</a> <a
-                        class="teg"
-                        href="#">разработка приложений</a></span>
+
+            <div id="like-b">
+                <span>
+                    <a>Теги:</a>
+                    {% for tag in tags %}
+                        <a class="teg" href="#">{{ tag }}</a>
+                    {% endfor %}
+                </span>
+                <hr>
+                {% include 'includes/add_like.html' with post_id=object.id %}
             </div>
+
+            {#            <div>#}
+            {#                <button class="btn"><i class="fa fa-heart"></i> нравится</button>#}
+            {#                <span>#}
+            {#                    <a>Теги:</a>#}
+            {#                    {% for tag in tags %}#}
+            {#                        <a class="teg" href="#">{{ tag }}</a>#}
+            {#                    {% endfor %}#}
+            {#                </span>#}
+            {#            </div>#}
         </div>
         <hr>
         <p>комментарии</p>
@@ -55,6 +69,10 @@
                                      title="{{ comment.user }}"/>
                             </div>
                             <p> {{ comment.body }} </p>
+                            {% if not comment.active and user.is_staff %}
+                                <a href="{% url 'posts:pub-comment' comment.pk %}">Опубликовать </a>
+                                <a href="{% url 'posts:delete-comment' comment.pk %}">Удалить</a>
+                            {% endif %}
                         </li>
                     </ul>
                 {% endfor %}

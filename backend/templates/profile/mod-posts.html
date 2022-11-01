@@ -18,12 +18,18 @@
                     {#                        {{ object.header}}#}
                     {#                    </h3>#}
                     <div class="post-action-links">
-                       <li class="post-list-item text-center"><a href="{% url 'posts:full-post' object.slug %}">{{ object.header}}</a></li>
-                        <a href="{% url 'posts:update-post' object.pk %}">Изменить</a>
+                    <li class="post-list-item text-center"><a href="{% url 'posts:full-post' object.slug %}">{{ object.header}}</a></li>
+                        <a href="{% url 'posts:pub-post' object.pk %}">Опубликовать</a>
                         <a href="{% url 'posts:delete-post' object.pk %}">Удалить</a>
 {#                        <a href="{% url 'posts:full-post' object.slug %}">Показать полностью</a>#}
                     </div>
                 </div>
+                {% empty %}
+                    <div class="onepost">
+                        <div class="post-action-links">
+                        <li class="post-list-item text-center">Модерировать нечего...</li>
+                        </div>
+                    </div>
                 {% endfor %}
             </div>
         </div>

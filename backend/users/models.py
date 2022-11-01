@@ -66,4 +66,4 @@ class BanList(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return self.id_ban_status
+        return self.id_user.email

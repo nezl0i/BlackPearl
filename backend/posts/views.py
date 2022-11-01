@@ -1,30 +1,30 @@
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.views.generic import ListView
+
+from likes.models import PostLikes
 from .models import Post, Category, Comment
-from django.views.generic.edit import FormView, UpdateView, DeleteView, FormMixin
+from django.views.generic.edit import UpdateView, DeleteView, FormMixin, CreateView
 from django.views.generic.detail import DetailView
-from django.views.generic import TemplateView
 from .forms import PostForm, CommentForm
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 def contact(request):
     content = {
         'title': 'Контакты',
-        'description': 'Lorem ipsum dolor amet consecrate adipiscing dolore magna aliqua '
-                       'enim minim estudiat veniam siad venomous dolore'
+        'description': 'Связь с нами'
     }
     return render(request, 'contact.html', content)
 
 
 def faq(request):
     content = {
-        'title': 'Часто задаваемые вопросы',
-        'description': 'Lorem ipsum dolor amet consecrate adipiscing dolore magna aliqua '
-                       'enim minim estudiat veniam siad venomous dolore'
+        'title': 'FAQ',
+        'description': 'Часто задаваемые вопросы'
     }
     return render(request, 'faq.html', content)
 
@@ -32,13 +32,12 @@ def faq(request):
 def about(request):
     content = {
         'title': 'О нас',
-        'description': 'Lorem ipsum dolor amet consecrate adipiscing dolore magna aliqua '
-                       'enim minim estudiat veniam siad venomous dolore'
+        'description': 'О нашей команде BlackPearlCode'
     }
     return render(request, 'about.html', content)
 
 
-class CreatePostView(FormView):
+class CreatePostView(CreateView):
     """
     View for Post creation
     Field author hidden, we get it from :request
@@ -47,7 +46,7 @@ class CreatePostView(FormView):
     template_name = 'profile/create-post.html'
 
     def post(self, request, *args, **kwargs):
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
@@ -85,10 +84,8 @@ class MyPostsView(ListView):
     template_name = 'profile/myposts.html'
     model = Post
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["object_list"] = Post.objects.filter(author=self.request.user).select_related()
-        return context
+    def get_queryset(self):
+        return Post.objects.filter(author=self.request.user).select_related()
 
 
 class PostFullView(FormMixin, DetailView):
@@ -101,11 +98,27 @@ class PostFullView(FormMixin, DetailView):
     template_name = 'posts/postview.html'
     success_url = reverse_lazy('posts:index')
     success_msg = 'Комментарий создан, ожидайте модерации'
+    extra_context = {
+        'title': 'Статья'
+    }
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        comments = Comment.objects.filter(post=kwargs.get("object"), active=True)
+        if self.request.user.is_staff:
+            comments = Comment.objects.filter(
+                post=kwargs.get("object"))
+        else:
+            comments = Comment.objects.filter(
+                post=kwargs.get("object"), active=True)
+
+        try:
+            post_likes = PostLikes.objects.get(post__id=kwargs.get("object").id, liked_by=self.request.user.id).like
+        except (Exception,):
+            post_likes = False
+
         context['comments'] = comments
+        context['tags'] = self.object.tags.names()
+        context['is_liked'] = post_likes
         return context
 
     def get_success_url(self):
@@ -127,32 +140,73 @@ class PostFullView(FormMixin, DetailView):
         return super().form_valid(form)
 
 
-class CategoryPostsView(TemplateView):
+class CategoryPostsView(ListView):
     """
     Class Based view for show all Posts or filtered by category
     :category name needed for filtering
 
     """
-
+    model = Post
     template_name = 'index.html'
+    extra_context = {}
+
+    def get_queryset(self):
+        if category_title := self.kwargs.get('category'):
+            self.extra_context['title'] = category_title
+            self.extra_context['description'] = Category.objects.filter(
+                name=category_title).values()[0]['description']
+            return Post.objects.filter(id_category__name=self.kwargs.get('category'),
+                                       status='published').select_related()
+        self.extra_context = {
+            'title': 'Блог статей команды BlackPearl',
+            'description': 'Интересные статьи обо всем. Популярные рубрики и занимательный контент.'
+        }
+
+        return Post.objects.filter(status='published').select_related()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        object_list = Post.objects.get_queryset().select_related()
-        context['title'] = 'Блог статей команды BlackPearl'
-        context['description'] = 'Интересные статьи обо всем. Популярные рубрики и занимательный контент.'
-
-        if kwargs.get('category'):
-            try:
-                object_list = Post.objects.filter(id_category__name=kwargs.get('category')).select_related()
-                context['title'] = kwargs.get('category')
-                context['description'] = Category.objects.filter(name=kwargs.get('category')).values()[0]['description']
-            except (TypeError, KeyError):
-                object_list = []
-
-        paginator = Paginator(object_list, 3)
+        paginator = Paginator(self.object_list, 6)
         page_num = self.request.GET.get('page')
         context['page_obj'] = paginator.get_page(page_num)
 
         return context
+
+
+class ModeratePostsView(ListView):
+    """
+    Class Based view for show user posts
+    :pk user needed
+    """
+    template_name = 'profile/mod-posts.html'
+    model = Post
+
+    def get_queryset(self):
+        return Post.objects.filter(status='draft').select_related()
+
+
+@staff_member_required
+def publicate_post(request, pk):
+    if request.user.is_staff:
+        post = get_object_or_404(Post, pk=pk)
+        post.status = 'published'
+        post.save()
+    return HttpResponseRedirect(reverse('posts:mod-posts'))
+
+
+@staff_member_required
+def publicate_comment(request, pk):
+    if request.user.is_staff:
+        comment = get_object_or_404(Comment, pk=pk)
+        comment.active = True
+        comment.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+@staff_member_required
+def delete_comment(request, pk):
+    if request.user.is_staff:
+        comment = get_object_or_404(Comment, pk=pk)
+        comment.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))

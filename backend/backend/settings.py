@@ -43,17 +43,20 @@ INSTALLED_APPS = [
     'users',
     'django_summernote',
     'backend',
+    'likes',
 
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    # 'likes.middleware.AjaxMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -128,7 +131,7 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = 'collectstatic'
 
-BASE_URL = 'http://localhost:8008'
+BASE_URL = 'http://localhost:8009'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -140,6 +143,7 @@ LOGOUT_REDIRECT_URL = '/login/'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_ERROR_URL = '/'
+SESSION_COOKIE_SECURE = True
 
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25

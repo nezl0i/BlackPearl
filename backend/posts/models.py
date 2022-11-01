@@ -43,6 +43,7 @@ class Post(models.Model):
         default='draft'
     )
     id_category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='posts_img/', null=True, blank=True)
 
     class Meta:
         ordering = ['-id']

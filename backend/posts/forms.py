@@ -12,16 +12,17 @@ class PostForm(forms.ModelForm):
     slug changed when Post created
     """
     body = forms.CharField(widget=SummernoteWidget(
-        attrs={'summernote': {'width': '100%'}}), label='Тело статьи')
+        attrs={'summernote': {'width': '100%'}}), label='Содержание статьи')
 
     class Meta:
         model = Post
-        fields = ('header', 'body', 'tags', 'id_category')
+        fields = ('header', 'body', 'tags', 'id_category', 'image')
         labels = {
             'header': _('Заголовок'),
-            'body': _('Тело статьи'),
+            'body': _('Содержание статьи'),
             'tags': _('Теги'),
             'id_category': _('Категория поста'),
+            'image': _('Изображение')
         }
         error_messages = {
             'tags': {
