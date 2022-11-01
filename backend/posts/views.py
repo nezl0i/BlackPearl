@@ -4,6 +4,8 @@ from django.urls import reverse, reverse_lazy
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.views.generic import ListView
+
+from likes.models import PostLikes
 from .models import Post, Category, Comment
 from django.views.generic.edit import UpdateView, DeleteView, FormMixin, CreateView
 from django.views.generic.detail import DetailView
@@ -108,8 +110,15 @@ class PostFullView(FormMixin, DetailView):
         else:
             comments = Comment.objects.filter(
                 post=kwargs.get("object"), active=True)
+
+        try:
+            post_likes = PostLikes.objects.get(post__id=kwargs.get("object").id, liked_by=self.request.user.id).like
+        except (Exception,):
+            post_likes = False
+
         context['comments'] = comments
         context['tags'] = self.object.tags.names()
+        context['is_liked'] = post_likes
         return context
 
     def get_success_url(self):

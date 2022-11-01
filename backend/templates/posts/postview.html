@@ -29,15 +29,27 @@
                 {{ object.body|safe }}
             </div>
             <hr>
-            <div>
-                <button class="btn"><i class="fa fa-heart"></i> нравится</button>
+
+            <div id="like-b">
                 <span>
                     <a>Теги:</a>
                     {% for tag in tags %}
                         <a class="teg" href="#">{{ tag }}</a>
                     {% endfor %}
                 </span>
+                <hr>
+                {% include 'includes/add_like.html' with post_id=object.id %}
             </div>
+
+            {#            <div>#}
+            {#                <button class="btn"><i class="fa fa-heart"></i> нравится</button>#}
+            {#                <span>#}
+            {#                    <a>Теги:</a>#}
+            {#                    {% for tag in tags %}#}
+            {#                        <a class="teg" href="#">{{ tag }}</a>#}
+            {#                    {% endfor %}#}
+            {#                </span>#}
+            {#            </div>#}
         </div>
         <hr>
         <p>комментарии</p>
