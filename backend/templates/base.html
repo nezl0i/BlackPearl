@@ -65,18 +65,29 @@
 
 
                         {% if user.is_authenticated %}
-                            <button class="btn"><i class="fa fa-bars" aria-hidden="true"
-                                                   onclick=location.href="{% url 'posts:myposts' %}"></i></button>
-                            <button class="btn"><i class="fa fa-plus" aria-hidden="true"
-                                                   onclick=location.href="{% url 'posts:create-post' %}"></i></button>
+                            <i> <a style="color: #17bed2;">личный кабинет:
+                                {{ user.username|default:user.email }}</a></i>
+                            <br>
+                            <button class="btn-theme btn-theme-sm btn-base-bg text-uppercase"><i class="fa fa-user"
+                                                                                                 aria-hidden="true"
+                                                                                                 onclick=location.href="{% url 'users:profile' user.pk %}"></i>
+                            </button>
+                            <button class="btn-theme btn-theme-sm btn-base-bg text-uppercase"><i class="fa fa-bars"
+                                                                                                 aria-hidden="true"
+                                                                                                 onclick=location.href="{% url 'posts:myposts' %}"></i>
+                            </button>
+                            <button class="btn-theme btn-theme-sm btn-base-bg text-uppercase"><i class="fa fa-plus"
+                                                                                                 aria-hidden="true"
+                                                                                                 onclick=location.href="{% url 'posts:create-post' %}"></i>
+                            </button>
 
-                            <i> <a style="color: #fff;"
-                                   href="{% url 'users:profile' user.pk %}">{{ user.username|default:user.email }} </a></i>
-                            <button onclick=location.href="{% url 'users:logout' %}" class="btn">
+                            <button onclick=location.href="{% url 'users:logout' %}"
+                                    class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                             </button>
                         {% else %}
-                            <button onclick=location.href="{% url 'users:login' %}" class="btn">
+                            <button onclick=location.href="{% url 'users:login' %}"
+                                    class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
                                 <i class="fa fa-sign-in" aria-hidden="true"></i>
                             </button>
                         {% endif %}
