@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('posts.urls', namespace='posts')),
     path('', include('users.urls', namespace='users')),
     path('summernote/', include('django_summernote.urls')),
+    path('', include('likes.urls', namespace='likes')),
 
 ]
 
