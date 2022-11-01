@@ -1,3 +1,6 @@
+import json
+import os
+
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -12,6 +15,8 @@ from django.views.generic.detail import DetailView
 from .forms import PostForm, CommentForm
 from django.contrib.admin.views.decorators import staff_member_required
 
+MODULE_DIR = os.path.dirname(__file__)
+
 
 def contact(request):
     content = {
@@ -22,11 +27,14 @@ def contact(request):
 
 
 def faq(request):
-    content = {
+    file_path = os.path.join(MODULE_DIR, 'fixtures/faq.json')
+    context = {
         'title': 'FAQ',
-        'description': 'Часто задаваемые вопросы'
+        'description': 'Как работать с BlackPearlCode платформой',
+        'faqs': json.load(open(file_path, encoding='utf-8'))
     }
-    return render(request, 'faq.html', content)
+
+    return render(request, 'faq.html', context)
 
 
 def about(request):
