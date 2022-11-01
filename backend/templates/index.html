@@ -16,8 +16,8 @@
         <div class="row margin-b-50">
 
             {% for object in page_obj %}
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-50">
+                <div class="row row-space-1 margin-b-2">
+                    <div class="col-sm-6 sm-margin-b-2">
                         <div class="wow zoomIn" data-wow-duration=".3" data-wow-delay=".1s">
                             <img class="img-responsive" style="max-width:370px; max-height:400px" src="
                                     {% if object.image %}{{ object.image.url }} {% else %}{% static 'img/970x647/02.jpg' %}{% endif %}"
@@ -27,8 +27,8 @@
                     <h3><a href="{% url 'posts:full-post' object.slug %}">{{ object.header }}</a>
                         <span class="text-uppercase margin-l-20">{{ object.id_category.name }}</span>
                     </h3>
-                    {{ object.body|truncatewords:70|safe }}
-                    <a class="link" href="{% url 'posts:full-post' object.slug %}">Читать далее</a>
+                    {{ object.body|truncatewords:60 }}
+{#                    <a class="link" href="{% url 'posts:full-post' object.slug %}">Читать далее</a>#}
                 </div>
             {% endfor %}
         </div>
