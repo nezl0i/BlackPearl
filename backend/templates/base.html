@@ -70,23 +70,29 @@
                             <br>
                             <button class="btn-theme btn-theme-sm btn-base-bg text-uppercase"><i class="fa fa-user"
                                                                                                  aria-hidden="true"
-                                                                                                 onclick=location.href="{% url 'users:profile' user.pk %}"></i>
+                                                                                                 onclick=location
+                                                                                                 .href="
+{% url 'users:profile' user.pk %}" title="Профиль"></i>
                             </button>
                             <button class="btn-theme btn-theme-sm btn-base-bg text-uppercase"><i class="fa fa-bars"
                                                                                                  aria-hidden="true"
-                                                                                                 onclick=location.href="{% url 'posts:myposts' %}"></i>
+                                                                                                 onclick=location
+                                                                                                 .href="
+{% url 'posts:myposts' %}" title="Мои посты"></i>
                             </button>
                             <button class="btn-theme btn-theme-sm btn-base-bg text-uppercase"><i class="fa fa-plus"
                                                                                                  aria-hidden="true"
-                                                                                                 onclick=location.href="{% url 'posts:create-post' %}"></i>
+                                                                                                 onclick=location
+                                                                                                 .href="
+{% url 'posts:create-post' %}" title="Добавить пост"></i>
                             </button>
 
-                            <button onclick=location.href="{% url 'users:logout' %}"
+                            <button onclick=location.href="{% url 'users:logout' %}" title="Выйти"
                                     class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                             </button>
                         {% else %}
-                            <button onclick=location.href="{% url 'users:login' %}"
+                            <button onclick=location.href="{% url 'users:login' %}" title="Войти"
                                     class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
                                 <i class="fa fa-sign-in" aria-hidden="true"></i>
                             </button>
