@@ -111,8 +111,6 @@
                         {% endfor %}
                         <li class="nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'posts:about' %}">
                             O нас</a></li>
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'posts:contact' %}">
-                            Контакты</a>
                         <li class="nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'posts:faq' %}">
                             FAQ</a></li>
                     </ul>
@@ -145,8 +143,6 @@
                         {% endfor %}
                         <li class="footer-list-item"><a class="footer-list-link" href="{% url 'posts:about' %}">О
                             нас</a></li>
-                        <li class="footer-list-item"><a class="footer-list-link" href="{% url 'posts:contact' %}">Контакты</a>
-                        </li>
                         <li class="footer-list-item"><a class="footer-list-link" href="{% url 'posts:faq' %}">FAQ</a>
                         </li>
                     </ul>
@@ -163,14 +159,10 @@
                     <!-- End List -->
                 </div>
                 <div class="col-sm-5 sm-margin-b-30">
-                    <h2 class="color-white">Связь с нами</h2>
-                    <input type="text" class="form-control footer-input margin-b-20" placeholder="Name" required>
-                    <input type="email" class="form-control footer-input margin-b-20" placeholder="Email" required>
-                    <input type="text" class="form-control footer-input margin-b-20" placeholder="Phone" required>
-                    <textarea class="form-control footer-input margin-b-30" rows="6" placeholder="Message"
-                              required></textarea>
-
-                    <button type="submit" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Submit</button>
+                    <div class="card card-user align-items-center">
+                        <h2 class="color-white">Связь с нами</h2>
+                        {% include 'contact_form.html' %}
+                    </div>
                 </div>
             </div>
             <!--// end row -->

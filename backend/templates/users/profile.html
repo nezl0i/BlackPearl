@@ -27,9 +27,10 @@
                             <ul class="list-unstyled">
                                 <li><a class="list-link" href="{% url 'posts:myposts' %}">Посты</a></li>
                                 <li><a class="list-link" href="#">Настройки аккаунта</a></li>
-                                <li><a class="list-link" href="#">Помощь</a></li>
+                                <li><a class="list-link" href="{% url 'posts:faq' %}">Помощь</a></li>
                                 {% if user.is_superuser %}
                                     <li><a class="list-link" href="{% url 'admin:index' %}">Админка</a></li>
+                                    <li><a class="list-link" href="#">Сообщения</a></li>
                                 {% endif %}
                                 {% if user.is_staff or user.is_superuser %}
                                     <li><a class="list-link" href="{% url 'posts:mod-posts' %}">Модерация постов</a>

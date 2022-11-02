@@ -1,6 +1,7 @@
 import json
 import os
 
+from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -8,6 +9,8 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.views.generic import ListView
 
+from backend.settings import EMAIL_HOST_USER
+from contacts.forms import ContactForm
 from likes.models import PostLikes
 from .models import Post, Category, Comment
 from django.views.generic.edit import UpdateView, DeleteView, FormMixin, CreateView
@@ -16,14 +19,6 @@ from .forms import PostForm, CommentForm
 from django.contrib.admin.views.decorators import staff_member_required
 
 MODULE_DIR = os.path.dirname(__file__)
-
-
-def contact(request):
-    content = {
-        'title': 'Контакты',
-        'description': 'Связь с нами'
-    }
-    return render(request, 'contact.html', content)
 
 
 def faq(request):
@@ -156,6 +151,7 @@ class CategoryPostsView(ListView):
     """
     model = Post
     template_name = 'index.html'
+    success_msg = 'Сообщение отправлено'
     extra_context = {}
 
     def get_queryset(self):
@@ -178,8 +174,22 @@ class CategoryPostsView(ListView):
         paginator = Paginator(self.object_list, 6)
         page_num = self.request.GET.get('page')
         context['page_obj'] = paginator.get_page(page_num)
+        context['form'] = ContactForm()
 
         return context
+
+    def post(self, request, *args, **kwargs):
+        form = ContactForm(request.POST)
+
+        if form.is_valid():
+            data = form.data
+            subject = f'Сообщение с формы от {data["username"]} {data["phone"]} Почта отправителя: {data["email"]}'
+            send_mail(subject, data['message'], data["email"], (EMAIL_HOST_USER,))
+            # email(subject, data['message'])
+            messages.success(self.request, self.success_msg)
+            form.save()
+
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 class ModeratePostsView(ListView):
