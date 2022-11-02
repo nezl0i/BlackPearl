@@ -69,13 +69,16 @@
                                 {{ user.username|default:user.email }}</a></i>
                             <br>
                             <button class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
-                                <i class="fa fa-user" aria-hidden="true" onclick=location.href="{% url 'users:profile' user.pk %}" title="Профиль"></i>
+                                <i class="fa fa-user" aria-hidden="true"
+                                   onclick=location.href="{% url 'users:profile' user.pk %}" title="Профиль"></i>
                             </button>
                             <button class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
-                                <i class="fa fa-bars" aria-hidden="true" onclick=location.href="{% url 'posts:myposts' %}" title="Мои посты"></i>
+                                <i class="fa fa-bars" aria-hidden="true"
+                                   onclick=location.href="{% url 'posts:myposts' %}" title="Мои посты"></i>
                             </button>
                             <button class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
-                                <i class="fa fa-plus" aria-hidden="true" onclick=location.href="{% url 'posts:create-post' %}" title="Добавить пост"></i>
+                                <i class="fa fa-plus" aria-hidden="true"
+                                   onclick=location.href="{% url 'posts:create-post' %}" title="Добавить пост"></i>
                             </button>
 
                             <button onclick=location.href="{% url 'users:logout' %}" title="Выйти"
@@ -108,8 +111,6 @@
                         {% endfor %}
                         <li class="nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'posts:about' %}">
                             O нас</a></li>
-{#                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'posts:contact' %}">#}
-{#                            Контакты</a>#}
                         <li class="nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'posts:faq' %}">
                             FAQ</a></li>
                     </ul>
@@ -142,8 +143,6 @@
                         {% endfor %}
                         <li class="footer-list-item"><a class="footer-list-link" href="{% url 'posts:about' %}">О
                             нас</a></li>
-                        <li class="footer-list-item"><a class="footer-list-link" href="{% url 'posts:contact' %}">Контакты</a>
-                        </li>
                         <li class="footer-list-item"><a class="footer-list-link" href="{% url 'posts:faq' %}">FAQ</a>
                         </li>
                     </ul>
@@ -160,14 +159,10 @@
                     <!-- End List -->
                 </div>
                 <div class="col-sm-5 sm-margin-b-30">
-                    <h2 class="color-white">Связь с нами</h2>
-                    <input type="text" class="form-control footer-input margin-b-20" placeholder="Name" required>
-                    <input type="email" class="form-control footer-input margin-b-20" placeholder="Email" required>
-                    <input type="text" class="form-control footer-input margin-b-20" placeholder="Phone" required>
-                    <textarea class="form-control footer-input margin-b-30" rows="6" placeholder="Message"
-                              required></textarea>
-
-                    <button type="submit" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Submit</button>
+                    <div class="card card-user align-items-center">
+                        <h2 class="color-white">Связь с нами</h2>
+                        {% include 'contact_form.html' %}
+                    </div>
                 </div>
             </div>
             <!--// end row -->
