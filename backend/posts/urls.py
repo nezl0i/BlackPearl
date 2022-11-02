@@ -1,7 +1,8 @@
 from django.urls import path
 from django.contrib.auth.decorators import login_required
 from posts.views import contact, faq, about, publicate_post, publicate_comment, delete_comment
-from .views import CreatePostView, UpdatePostView, DeletePostView, MyPostsView, PostFullView, CategoryPostsView, ModeratePostsView
+from .views import CreatePostView, UpdatePostView, DeletePostView, MyPostsView, PostFullView, CategoryPostsView, \
+    ModeratePostsView
 from django.contrib.admin.views.decorators import staff_member_required
 
 app_name = 'posts'

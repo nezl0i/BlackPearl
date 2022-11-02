@@ -8,21 +8,21 @@
 {% block content %}
 
 
-<div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/1920x1080/01.jpg' %}">
-    <div class="parallax-content container text-center">
-        <div class="card card-user">
-            <form action="" method="POST">
-                {% csrf_token %}
-                <h3 class="onepost-h3">
-                    {{ object.header}}
-                </h3>
-                {% comment %} <img class="onepost-img" src="{% static 'img/970x647/01.jpg' %}"> {% endcomment %}
-                <h4 class="onepost-h4">Вы действительно хотите удалить этот пост?</h4>
-                <input class="post-btn-delete" type="submit" value="Delete">
-            </form>
+    <div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/1920x1080/01.jpg' %}">
+        <div class="parallax-content container text-center">
+            <div class="card card-user">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <h3 class="onepost-h3">
+                        {{ object.header }}
+                    </h3>
+                    {% comment %} <img class="onepost-img" src="{% static 'img/970x647/01.jpg' %}"> {% endcomment %}
+                    <h4 class="onepost-h4">Вы действительно хотите удалить этот пост?</h4>
+                    <input class="post-btn-delete" type="submit" value="Delete">
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
 
 {% endblock %}
