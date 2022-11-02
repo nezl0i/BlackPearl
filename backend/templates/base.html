@@ -65,9 +65,10 @@
 
 
                         {% if user.is_authenticated %}
-                            <i> <a style="color: #17bed2;">Добро пожаловать
-                                {{ user.username|default:user.email }}</a></i>
-                            <br>
+                            {#                            <i> <a style="color: #17bed2;">Добро пожаловать#}
+                            {#                                {{ user.username|default:user.email }}</a></i>#}
+                            {#                            <br>#}
+
                             <button class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
                                 <i class="fa fa-user" aria-hidden="true"
                                    onclick=location.href="{% url 'users:profile' user.pk %}" title="Профиль"></i>
@@ -91,11 +92,15 @@
                                     class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                             </button>
+                            <img style="max-width: 10%; height: 10%; vertical-align: middle"
+                                 src="{{ user.avatar.url }}" alt class="img-circle"/>
+
                         {% else %}
                             <button onclick=location.href="{% url 'users:login' %}" title="Войти"
                                     class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
                                 <i class="fa fa-sign-in" aria-hidden="true"></i>
                             </button>
+
                         {% endif %}
                     </ul>
                 </div>
