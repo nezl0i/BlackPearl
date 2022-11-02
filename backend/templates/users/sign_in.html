@@ -6,13 +6,13 @@
     <link rel="stylesheet" href="{% static 'css/sign_in.css' %}" type="text/css"/>
 {% endblock %}
 {% block content %}
-{#    {% if messages %}#}
-{#        {% for message in messages %}#}
-{#            <div class="alert {{ message.tags }} m-2" id="msg" role="alert">#}
-{#                {{ message }}#}
-{#            </div>#}
-{#        {% endfor %}#}
-{#    {% endif %}#}
+    {#    {% if messages %}#}
+    {#        {% for message in messages %}#}
+    {#            <div class="alert {{ message.tags }} m-2" id="msg" role="alert">#}
+    {#                {{ message }}#}
+    {#            </div>#}
+    {#        {% endfor %}#}
+    {#    {% endif %}#}
 
     <div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/1920x1080/01.jpg' %}">
         <div class="parallax-content container text-center">
@@ -49,10 +49,13 @@
                             <div class="form-group">
                                 <div class="checkbox">
                                     <input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-a1" checked="">
-                                    <label for="checkbox-fill-a1" class="text-muted"> Согласен с <a href="#">условиями</a></label>
+                                    <label for="checkbox-fill-a1" class="text-muted"> Согласен с <a
+                                            href="#">условиями</a></label>
                                 </div>
                             </div>
-                            <button type="submit" name="register" class="btn btn-primary btn-block margin-b-10">Зарегистрироваться</button>
+                            <button type="submit" name="register" class="btn btn-primary btn-block margin-b-10">
+                                Зарегистрироваться
+                            </button>
 
                         </form>
                         <p class="mb-0 text-muted">Уже есть аккаунт? <a href="{% url 'users:login' %}">Вход</a></p>

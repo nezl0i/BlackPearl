@@ -29,10 +29,11 @@
                                 <li><a class="list-link" href="#">Настройки аккаунта</a></li>
                                 <li><a class="list-link" href="#">Помощь</a></li>
                                 {% if user.is_superuser %}
-                                <li><a class="list-link" href="{% url 'admin:index' %}">Админка</a></li>
+                                    <li><a class="list-link" href="{% url 'admin:index' %}">Админка</a></li>
                                 {% endif %}
-                                {% if user.is_staff or user.is_superuser%}
-                                <li><a class="list-link" href="{% url 'posts:mod-posts' %}">Модерация постов</a></li>
+                                {% if user.is_staff or user.is_superuser %}
+                                    <li><a class="list-link" href="{% url 'posts:mod-posts' %}">Модерация постов</a>
+                                    </li>
                                 {% endif %}
                             </ul>
                         </div>
@@ -97,11 +98,11 @@
                                         <label class="color-white" for="id_avatar">Image</label>
                                         {{ form.avatar }}
                                     </div>
-{#                                    <div class="form-outline margin-b-10">#}
-{#                                        <label class="color-white" for="{{ form.avatar.id_for_label }}">Выберите#}
-{#                                            изображение</label>#}
-{#                                        {{ form.avatar }}#}
-{#                                    </div>#}
+                                    {#                                    <div class="form-outline margin-b-10">#}
+                                    {#                                        <label class="color-white" for="{{ form.avatar.id_for_label }}">Выберите#}
+                                    {#                                            изображение</label>#}
+                                    {#                                        {{ form.avatar }}#}
+                                    {#                                    </div>#}
 
                                     <button type="submit" name="save" class="btn btn-primary btn-block margin-b-10">
                                         Изменить

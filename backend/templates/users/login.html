@@ -6,13 +6,13 @@
     <link rel="stylesheet" href="{% static 'css/sign_in.css' %}" type="text/css"/>
 {% endblock %}
 {% block content %}
-{#    {% if messages %}#}
-{#        {% for message in messages %}#}
-{#            <div class="alert {{ message.tags }} m-2" id="msg" role="alert">#}
-{#                {{ message }}#}
-{#            </div>#}
-{#        {% endfor %}#}
-{#    {% endif %}#}
+    {#    {% if messages %}#}
+    {#        {% for message in messages %}#}
+    {#            <div class="alert {{ message.tags }} m-2" id="msg" role="alert">#}
+    {#                {{ message }}#}
+    {#            </div>#}
+    {#        {% endfor %}#}
+    {#    {% endif %}#}
 
     <div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/1920x1080/01.jpg' %}">
         <div class="parallax-content container text-center">
@@ -40,9 +40,11 @@
                                 </div>
                             </div>
 
-                            <button type="submit" name="login" class="btn btn-primary btn-block margin-b-10">Войти</button>
+                            <button type="submit" name="login" class="btn btn-primary btn-block margin-b-10">Войти
+                            </button>
                         </form>
-                        <p class="mb-0 text-muted">Нет аккаунта? <a href="{% url 'users:register' %}">Зарегистрироваться</a></p>
+                        <p class="mb-0 text-muted">Нет аккаунта? <a
+                                href="{% url 'users:register' %}">Зарегистрироваться</a></p>
                         <br/>
 
                     </div>

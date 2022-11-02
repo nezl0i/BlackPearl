@@ -8,19 +8,19 @@
 {% block content %}
 
 
-<div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/1920x1080/01.jpg' %}">
-    <div class="parallax-content container text-center">
-        <div class="card card-user">
-            <div>
-                <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <input type="submit" value="Сохранить">
-                </form>
+    <div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/1920x1080/01.jpg' %}">
+        <div class="parallax-content container text-center">
+            <div class="card card-user">
+                <div>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value="Сохранить">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 {% endblock %}
