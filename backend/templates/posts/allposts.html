@@ -1,13 +1,13 @@
 <div class="posts">
     {% for object in object_list %}
-    <div style="border-style:dashed">
-        <h3>
-            {{ object.header}} <a href="{% url 'posts:full-post' object.slug %}">Показать полностью</a>
-        </h3>
-        <p>
-            {{ object.body|safe}}
-        </p>
-    </div>
+        <div style="border-style:dashed">
+            <h3>
+                {{ object.header }} <a href="{% url 'posts:full-post' object.slug %}">Показать полностью</a>
+            </h3>
+            <p>
+                {{ object.body|safe }}
+            </p>
+        </div>
     {% endfor %}
 
 </div>

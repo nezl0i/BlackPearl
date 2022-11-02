@@ -1,8 +1,8 @@
-{% load static%}
+{% load static %}
 
 <div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/1920x1080/01.jpg' %}">
     <div class="parallax-content container">
-        <h3 class="carousel-title">{% if object %}{{ object.id_category.name}} {% else %}{{ title }} {% endif %}</h3>
+        <h3 class="carousel-title">{% if object %}{{ object.id_category.name }} {% else %}{{ title }} {% endif %}</h3>
         <p>{% if object %}{{ object.id_category.description }} {% else %}{{ description }} {% endif %}</p>
     </div>
 </div>
