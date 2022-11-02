@@ -22,7 +22,7 @@ class PostForm(forms.ModelForm):
             'body': _('Содержание статьи'),
             'tags': _('Теги'),
             'id_category': _('Категория поста'),
-            'image': _('Изображение')
+            'image': _('Превью')
         }
         error_messages = {
             'tags': {

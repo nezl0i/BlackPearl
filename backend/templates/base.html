@@ -69,16 +69,13 @@
                                 {{ user.username|default:user.email }}</a></i>
                             <br>
                             <button class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
-                                <i class="fa fa-user" aria-hidden="true"
-                                   onclick=location.href="{% url 'users:profile' user.pk %}" title="Профиль"></i>
+                                <i class="fa fa-user" aria-hidden="true" onclick=location.href="{% url 'users:profile' user.pk %}" title="Профиль"></i>
                             </button>
                             <button class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
-                                <i class="fa fa-bars" aria-hidden="true"
-                                   onclick=location.href="{% url 'posts:myposts' %}" title="Мои посты"></i>
+                                <i class="fa fa-bars" aria-hidden="true" onclick=location.href="{% url 'posts:myposts' %}" title="Мои посты"></i>
                             </button>
                             <button class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
-                                <i class="fa fa-plus" aria-hidden="true"
-                                   onclick=location.href="{% url 'posts:create-post' %}" title="Добавить пост"></i>
+                                <i class="fa fa-plus" aria-hidden="true" onclick=location.href="{% url 'posts:create-post' %}" title="Добавить пост"></i>
                             </button>
 
                             <button onclick=location.href="{% url 'users:logout' %}" title="Выйти"
@@ -111,8 +108,8 @@
                         {% endfor %}
                         <li class="nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'posts:about' %}">
                             O нас</a></li>
-                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'posts:contact' %}">
-                            Контакты</a>
+{#                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'posts:contact' %}">#}
+{#                            Контакты</a>#}
                         <li class="nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'posts:faq' %}">
                             FAQ</a></li>
                     </ul>
