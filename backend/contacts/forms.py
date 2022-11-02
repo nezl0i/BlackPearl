@@ -12,7 +12,7 @@ class ContactForm(ModelForm):
         widgets = {
             'username': TextInput(
                 attrs={
-                    "placeholder": "Username",
+                    "placeholder": "Имя",
                     "class": "form-control footer-input margin-b-20"
                 }
             ),
@@ -24,13 +24,13 @@ class ContactForm(ModelForm):
             ),
             'phone': TextInput(
                 attrs={
-                    "placeholder": "Phone",
+                    "placeholder": "Телефон",
                     "class": "form-control footer-input margin-b-20"
                 }
             ),
             'message': Textarea(
                 attrs={
-                    'placeholder': 'Message',
+                    'placeholder': 'Сообщение',
                     "class": "form-control footer-input margin-b-30"
                 }
             ),
