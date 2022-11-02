@@ -65,7 +65,7 @@
 
 
                         {% if user.is_authenticated %}
-                            <i> <a style="color: #17bed2;">личный кабинет:
+                            <i> <a style="color: #17bed2;">Добро пожаловать
                                 {{ user.username|default:user.email }}</a></i>
                             <br>
                             <button class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
@@ -80,6 +80,12 @@
                                 <i class="fa fa-plus" aria-hidden="true"
                                    onclick=location.href="{% url 'posts:create-post' %}" title="Добавить пост"></i>
                             </button>
+                            {% if user.is_superuser %}
+                                <button class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
+                                    <i class="fa fa-envelope-o" aria-hidden="true"
+                                       onclick=location.href="#" title="Сообщения"></i>
+                                </button>
+                            {% endif %}
 
                             <button onclick=location.href="{% url 'users:logout' %}" title="Выйти"
                                     class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
