@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/everystyle.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'css/post.css' %}" type="text/css"/>
+{% endblock %}
+{% block content %}
+
+
+    <div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/1920x1080/01.jpg' %}">
+        <div class="parallax-content container text-center">
+            <div class="card card-user">
+                <div class="posts">
+                    {% for object in object_list %}
+                        <div class="onepost">
+                            {#                    <h3 class="onepost-h3">#}
+                            {#                        {{ object.header}}#}
+                            {#                    </h3>#}
+                            <div class="post-action-links">
+                                <li class="post-list-item text-center {% if not object.is_read %}unread{% endif %} "><a
+                                        href="{% url 'feedback:read_msg' object.pk %}">{{ object.username }} {{ object.email }}</a>
+                                    <a class="btn" href="mailto:{{ object.email }}">Написать</a>
+                                    <a class="btn" href="{% url 'feedback:delete_msg' object.pk %}">Удалить</a>
+                                    {#                        <a href="{% url 'posts:full-post' object.slug %}">Показать полностью</a>#}
+                                    <div>
+                                        <p>
+                                            {{ object.message }}
+                                        </p>
+                                    </div>
+                            </div>
+                            
+                        </div>
+                    {% empty %}
+                        <div class="onepost">
+                            <div class="post-action-links">
+                                <li class="post-list-item text-center">Здесь пока пусто...</li>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'vendor/jquery.parallax.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'vendor/swiper/js/swiper.jquery.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/components/swiper.min.js' %}" type="text/javascript"></script>
+{% endblock %}
