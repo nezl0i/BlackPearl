@@ -174,7 +174,7 @@ class CategoryPostsView(ListView):
         paginator = Paginator(self.object_list, 6)
         page_num = self.request.GET.get('page')
         context['page_obj'] = paginator.get_page(page_num)
-        context['form'] = ContactForm()
+        # context['form'] = ContactForm()
 
         return context
 

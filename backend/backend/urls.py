@@ -9,8 +9,10 @@ urlpatterns = [
     path('', include('users.urls', namespace='users')),
     path('summernote/', include('django_summernote.urls')),
     path('', include('likes.urls', namespace='likes')),
+    path('', include('contacts.urls', namespace='feedback')),
 
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
