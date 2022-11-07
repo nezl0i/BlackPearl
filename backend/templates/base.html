@@ -22,10 +22,10 @@
     <!-- PAGE LEVEL PLUGIN STYLES -->
     <link href="{% static 'css/animate.css' %}" rel="stylesheet">
 
-    {#    <link href="{% static 'css/style.css' %}" rel="stylesheet">#}
+    {#        <link href="{% static 'css/style.css' %}" rel="stylesheet">#}
 
     <!-- THEME STYLES -->
-    <link href="{% static 'css/layout.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/layout.css' %}" rel="stylesheet" type="text/css"/>
 
     {% block  css %} {% endblock %}
 
@@ -42,14 +42,16 @@
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="menu-container">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                <button type="button" class="navbar-toggle"
+                        data-toggle="collapse" data-target=".nav-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="toggle-icon"></span>
                 </button>
 
                 <!-- Logo -->
                 <div class="logo">
-                    <a class="logo-wrap" href="{% url 'posts:index' %}">
+                    <a class=" logo-wrap
+                " href="{% url 'posts:index' %}">
                         <img class="logo-img logo-img-main" src="{% static 'img/logo-bpc-light.png' %}"
                              alt="BlackPearlCode">
                         <img class="logo-img logo-img-active" src="{% static 'img/logo-bpc-dark.png' %}"
@@ -69,35 +71,34 @@
                             {#                                {{ user.username|default:user.email }}</a></i>#}
                             {#                            <br>#}
 
-                            <button class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
+                            <button class="btn-theme btn-theme-log btn-base-bg text-uppercase">
                                 <i class="fa fa-user" aria-hidden="true"
                                    onclick=location.href="{% url 'users:profile' user.pk %}" title="Профиль"></i>
                             </button>
-                            <button class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
+                            <button class="btn-theme btn-theme-log btn-base-bg text-uppercase">
                                 <i class="fa fa-bars" aria-hidden="true"
                                    onclick=location.href="{% url 'posts:myposts' %}" title="Мои посты"></i>
                             </button>
-                            <button class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
+                            <button class="btn-theme btn-theme-log btn-base-bg text-uppercase">
                                 <i class="fa fa-plus" aria-hidden="true"
                                    onclick=location.href="{% url 'posts:create-post' %}" title="Добавить пост"></i>
                             </button>
                             {% if user.is_superuser %}
-                                <button class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
+                                <button class="btn-theme btn-theme-log btn-base-bg text-uppercase">
                                     <i class="fa fa-envelope-o" aria-hidden="true"
-                                       onclick=location.href="#" title="Сообщения"></i>
+                                       onclick=location.href="{% url 'contacts:main' %}" title="Сообщения"></i>
                                 </button>
                             {% endif %}
 
                             <button onclick=location.href="{% url 'users:logout' %}" title="Выйти"
-                                    class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
+                                    class="btn-theme btn-theme-log btn-base-bg text-uppercase">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                             </button>
-                            <img style="max-width: 10%; height: 10%; vertical-align: middle"
-                                 src="{{ user.avatar.url }}" alt class="img-circle"/>
+
 
                         {% else %}
                             <button onclick=location.href="{% url 'users:login' %}" title="Войти"
-                                    class="btn-theme btn-theme-sm btn-base-bg text-uppercase">
+                                    class="btn-theme btn-theme-log btn-base-bg text-uppercase">
                                 <i class="fa fa-sign-in" aria-hidden="true"></i>
                             </button>
 
@@ -108,8 +109,8 @@
             <!-- конец Авторизация/регистрация  -->
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse nav-collapse">
-                <div class="menu-container">
-                    <ul class="navbar-nav navbar-nav-right">
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <ul class="navbar-nav">
                         <li class="nav-item"><a class="nav-item-child nav-item-hover active"
                                                 href="{% url 'posts:index' %}">Сегодня</a></li>
                         {% for category in categories %}

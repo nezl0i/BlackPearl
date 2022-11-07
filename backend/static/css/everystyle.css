@@ -12,7 +12,3 @@
     padding: 20px 10px;
     background-color: #303337;
 }
-
-.unread::marker{
-    color: red;
-}
