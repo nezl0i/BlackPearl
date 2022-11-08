@@ -33,9 +33,12 @@ def faq(request):
 
 
 def about(request):
+    file_path = os.path.join(MODULE_DIR, 'fixtures/about.json')
     content = {
         'title': 'О нас',
-        'description': 'О нашей команде BlackPearlCode'
+        'description': 'О нашей команде BlackPearlCode',
+        'image_root': 'img/about/07.jpg',
+        'abouts': json.load(open(file_path, encoding='utf-8'))
     }
     return render(request, 'about.html', content)
 
@@ -205,7 +208,7 @@ class ModeratePostsView(ListView):
 
 
 @staff_member_required
-def publicate_post(request, pk):
+def publication_post(request, pk):
     if request.user.is_staff:
         post = get_object_or_404(Post, pk=pk)
         post.status = 'published'
@@ -214,7 +217,7 @@ def publicate_post(request, pk):
 
 
 @staff_member_required
-def publicate_comment(request, pk):
+def publication_comment(request, pk):
     if request.user.is_staff:
         comment = get_object_or_404(Comment, pk=pk)
         comment.active = True
