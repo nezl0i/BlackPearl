@@ -4,9 +4,11 @@ from .models import Contact
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 
+
 class FeedbackView(ListView):
     template_name = 'feedback/feedback.html'
     model = Contact
+
 
 @staff_member_required
 def read_msg(request, pk):
