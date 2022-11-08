@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth.decorators import login_required
-from posts.views import faq, about, publicate_post, publicate_comment, delete_comment
+from posts.views import faq, about, delete_comment, publication_post, publication_comment
 from .views import CreatePostView, UpdatePostView, DeletePostView, MyPostsView, PostFullView, CategoryPostsView, \
     ModeratePostsView
 from django.contrib.admin.views.decorators import staff_member_required
@@ -18,7 +18,7 @@ urlpatterns = [
     path('me/posts/', MyPostsView.as_view(), name='myposts'),
     path('post/<str:slug>', PostFullView.as_view(), name='full-post'),
     path('moderate/posts/', staff_member_required(ModeratePostsView.as_view()), name='mod-posts'),
-    path('post/publicate/<int:pk>/', publicate_post, name='pub-post'),
-    path('comment/publicate/<int:pk>/', publicate_comment, name='pub-comment'),
+    path('post/publicate/<int:pk>/', publication_post, name='pub-post'),
+    path('comment/publicate/<int:pk>/', publication_comment, name='pub-comment'),
     path('comment/delete/<int:pk>/', delete_comment, name='delete-comment'),
 ]
