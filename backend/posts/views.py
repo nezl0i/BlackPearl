@@ -53,10 +53,15 @@ class CreatePostView(CreateView):
 
     def post(self, request, *args, **kwargs):
         form = PostForm(request.POST, request.FILES)
+        form.instance.author_id = request.user.id
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.save()
+            form.save()
+            # post = form.save(commit=False)
+            # post.author = request.user
+            # # post.tags = form.tags
+            # # print(form.fields["tags"])
+            # post.tags = form.fields["tags"]
+            # post.save()
             return HttpResponseRedirect(reverse('posts:index'))
         return HttpResponseRedirect(reverse('posts:create-post'), kwargs={'form': form})
 
@@ -118,7 +123,8 @@ class PostFullView(FormMixin, DetailView):
                 post=kwargs.get("object"), active=True)
 
         try:
-            post_likes = PostLikes.objects.get(post__id=kwargs.get("object").id, liked_by=self.request.user.id).like
+            post_likes = PostLikes.objects.get(post__id=kwargs.get(
+                "object").id, liked_by=self.request.user.id).like
         except (Exception,):
             post_likes = False
 
@@ -187,7 +193,8 @@ class CategoryPostsView(ListView):
         if form.is_valid():
             data = form.data
             subject = f'Сообщение с формы от {data["username"]} {data["phone"]} Почта отправителя: {data["email"]}'
-            send_mail(subject, data['message'], data["email"], (EMAIL_HOST_USER,))
+            send_mail(subject, data['message'],
+                      data["email"], (EMAIL_HOST_USER,))
             # email(subject, data['message'])
             messages.success(self.request, self.success_msg)
             form.save()
