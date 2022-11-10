@@ -22,8 +22,6 @@
     <!-- PAGE LEVEL PLUGIN STYLES -->
     <link href="{% static 'css/animate.css' %}" rel="stylesheet">
 
-    {#        <link href="{% static 'css/style.css' %}" rel="stylesheet">#}
-
     <!-- THEME STYLES -->
     <link href="{% static 'css/layout.css' %}" rel="stylesheet" type="text/css"/>
 
@@ -67,10 +65,6 @@
 
 
                         {% if user.is_authenticated %}
-                            {#                            <i> <a style="color: #17bed2;">Добро пожаловать#}
-                            {#                                {{ user.username|default:user.email }}</a></i>#}
-                            {#                            <br>#}
-
                             <button class="btn-theme btn-theme-log btn-base-bg text-uppercase">
                                 <i class="fa fa-user" aria-hidden="true"
                                    onclick=location.href="{% url 'users:profile' user.pk %}" title="Профиль"></i>
@@ -163,10 +157,21 @@
                 <div class="col-sm-4 sm-margin-b-30">
                     <!-- List -->
                     <ul class="list-unstyled footer-list">
-                        <li class="footer-list-item"><a class="footer-list-link" href="#">Twitter</a></li>
-                        <li class="footer-list-item"><a class="footer-list-link" href="#">Facebook</a></li>
-                        <li class="footer-list-item"><a class="footer-list-link" href="#">Instagram</a></li>
-                        <li class="footer-list-item"><a class="footer-list-link" href="#">YouTube</a></li>
+                        <li class="footer-list-item">
+                            <i class="fa fa-github fa-lg">&nbsp;<a class="footer-list-link"
+                                                                   href="https://github.com/nezl0i/BlackPearl"
+                                                                   target="_blank">Github</a></i>
+                        </li>
+                        <li class="footer-list-item">
+                            <i class="fa fa-google fa-lg">&nbsp;<a class="footer-list-link"
+                                                                   href="https://docs.google.com/document/d/1rddMUFiurb0MAidKM9s0uAl2NFrMt7WdWhYT-B4wCwk/edit"
+                                                                   target="_blank">Google</a></i>
+                        </li>
+                        <li class="footer-list-item">
+                            <i class="fa fa-trello fa-lg">&nbsp;<a class="footer-list-link"
+                                                                   href="https://trello.com/b/BHH4DWX2/%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D1%8B%D0%B9-%D1%85%D0%B0%D0%B1%D1%80-%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D1%8B-blackpearlcode"
+                                                                   target="_blank">Trello</a></i>
+                        </li>
                     </ul>
                     <!-- End List -->
                 </div>
