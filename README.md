@@ -30,7 +30,7 @@ pip install -r {path_to_requirements}/requirements.txt
 
   Создаем серектный ключ
 ```
-nano .env		# Вводим SECRET_KEY
+nano .env		# Вводим SECRET_KEY=<your key>
 ```
   Делаем миграции
 ```
