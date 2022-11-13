@@ -5,7 +5,7 @@
 
 * Win 8-10 или Ubuntu 16.04.6 LTS и выше
 * Python 3.10
-* SQLite 3.
+* SQLite 3.39 и выше
 * Django 4.0
 * Зависимости из requirements.txt
 
