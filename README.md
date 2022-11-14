@@ -18,7 +18,8 @@ git clone git@github.com:nezl0i/BlackPearl.git
 2. Создаем виртуальное окружение и входим в него:
 ```
 python3 -m venv venv
-venv\Scripts\activate 
+Windows - venv\Scripts\activate
+Linux - source venv/bin/activate
 ```
   Данный путь может отличаться в зависимости от системы.
   
